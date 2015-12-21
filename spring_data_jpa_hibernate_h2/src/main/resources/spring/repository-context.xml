@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+                           http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	<!-- JPA Repositories -->
+    <jpa:repositories base-package="es.jmartin.ejemplos.spring.data.model.repository" transaction-manager-ref="transactionManagerRepository"/>
+   
+    <!-- datasource -->
+    <!-- bbdd local, de tipo postgres para probar -->
+	<bean id="dataSourceRepository" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/pruebas" />
+		<property name="username" value="postgres" />
+		<property name="password" value="postgres" />
+	</bean>   
+		
+	<!-- entityManagerFactory -->
+	
+	<!-- Voy a usar de Spring LocalContainerEntityManagerFactoryBean que genera EntityManagerFactory 
+		con configuración específica, evitando los archivos adicionales para configurar su capa de persistencia. 
+		Eso significa que no necesitaremos un fichero persistence.xml ni cualquier otro archivo de mapeo.
+		
+		<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">        
+	        <property name="persistenceUnitName" value="persistence-unit" />
+	    </bean>
+    	 -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    	<property name="dataSource" ref="dataSourceRepository"/>
+    	   	
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" >
+            	<property name="showSql" value="true"/>
+            	<property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            </bean>
+        </property>  
+        
+        <property name="packagesToScan" value ="es.jmartin.ejemplos.spring.data.model.domainobject" />
+        
+        <property name="jpaProperties">
+        	<props>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.SingletonEhCacheProvider</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+        </property> 
+    </bean>
+        
+    <!-- transactionManager -->
+    <bean id="transactionManagerRepository" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory"/>
+</beans>
