@@ -1,4 +1,4 @@
-package com.beingjavaguys.domain;
+package es.jmartin.ejemplos.spring.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;

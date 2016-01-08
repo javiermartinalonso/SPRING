@@ -1,4 +1,4 @@
-package com.beingjavaguys.controller;
+package es.jmartin.ejemplos.spring.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.beingjavaguys.domain.Student;
-import com.beingjavaguys.domain.StudentList;
+import es.jmartin.ejemplos.spring.domain.Student;
+import es.jmartin.ejemplos.spring.domain.StudentList;
 
 @Controller
 //@RequestMapping("/student")

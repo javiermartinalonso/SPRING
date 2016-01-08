@@ -1,4 +1,4 @@
-package com.beingjavaguys.domain;
+package es.jmartin.ejemplos.spring.domain;
 
 import java.util.List;
 
