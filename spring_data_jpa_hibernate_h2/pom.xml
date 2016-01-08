@@ -46,13 +46,42 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${spring-data-jpa.version}</version>
-			<!-- <exclusions> <exclusion> <artifactId>spring-orm</artifactId> <groupId>org.springframework</groupId> 
-				</exclusion> <exclusion> <artifactId>spring-tx</artifactId> <groupId>org.springframework</groupId> 
-				</exclusion> <exclusion> <artifactId>spring-beans</artifactId> <groupId>org.springframework</groupId> 
-				</exclusion> <exclusion> <artifactId>spring-aop</artifactId> <groupId>org.springframework</groupId> 
-				</exclusion> <exclusion> <artifactId>spring-core</artifactId> <groupId>org.springframework</groupId> 
-				</exclusion> <exclusion> <artifactId>spring-context</artifactId> <groupId>org.springframework</groupId> 
-				</exclusion> </exclusions> -->
+			<!-- POSIBLEMENTE SEA NECESARIO DESCOMENTAR EN EL CASO QUE ESTEMOS INTEGRANDO CON 
+			OTROS MODULOS QUE YA TIENEN ESTAS DEPENDENCIAS
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-orm</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-tx</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-aop</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-core</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-context</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+			 -->
+		</dependency>
+
+		<!-- postgres driver -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.3-1100-jdbc41</version>
 		</dependency>
 
 		<!-- junit -->
@@ -70,15 +99,6 @@
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
-
-
-		<!-- postgres driver -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.3-1100-jdbc41</version>
-		</dependency>
-
 
 		<!-- Database (H2) -->
 		<dependency>
