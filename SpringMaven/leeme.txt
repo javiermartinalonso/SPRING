@@ -1,0 +1,7 @@
+ejemplo sencillo de spring mvc con maven
+
+
+urls:
+http://localhost:8080/SpringMaven
+http://localhost:8080/SpringMaven/studen.xml
+http://localhost:8080/SpringMaven/studentlist.xml
