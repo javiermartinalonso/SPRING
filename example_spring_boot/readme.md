@@ -33,7 +33,9 @@ $ mvn spring-boot:run
     ....... . . . (log output here)
     ....... . . .
     ........ Started Example in 2.222 seconds (JVM running for 6.514)
-    If you open a web browser to localhost:8080 you should see the following output:
+
+If you open a web browser to localhost:8080 you should see the following output:
 
     Hello World!
-    To gracefully exit the application hit ctrl-c.
+
+To gracefully exit the application hit ctrl-c.
