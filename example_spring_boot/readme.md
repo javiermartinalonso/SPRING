@@ -1,3 +1,17 @@
+## SPRING BOOT EXAMPLE
+
+### references to Oficial page
+
+      http://projects.spring.io/spring-boot/
+
+Spring Boot Reference Guide:
+
+      http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/
+
+getting-started
+
+      http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#getting-started
+
 Sample application demonstrating how to do use spring-boot.
 
 This ApplicationContext will start an in-process Apache Directory Server instance, automatically populated
