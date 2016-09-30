@@ -7,6 +7,10 @@
 	<name>example_spring_boot</name>
 	<description>ejemplo de uso de spring boot</description>
 
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -21,7 +25,8 @@
 	</dependencies>
 
 
-	<!-- Se necesita añadir estos repositorios paa que maven pueda compilar spring-boot-starter-parent-->
+	<!-- Se necesita añadir estos repositorios paa que maven pueda compilar 
+		spring-boot-starter-parent -->
 
 	<!-- (you don't need this if you are using a .RELEASE version) -->
 	<repositories>
@@ -47,4 +52,13 @@
 			<url>http://repo.spring.io/milestone</url>
 		</pluginRepository>
 	</pluginRepositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>
