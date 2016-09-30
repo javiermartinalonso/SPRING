@@ -8,18 +8,18 @@ At this point our application should work. Since we have used the spring-boot-st
 
 $ mvn spring-boot:run
 
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::  (v2.0.0.BUILD-SNAPSHOT)
-....... . . .
-....... . . . (log output here)
-....... . . .
-........ Started Example in 2.222 seconds (JVM running for 6.514)
-If you open a web browser to localhost:8080 you should see the following output:
+      .   ____          _            __ _ _
+     /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+    ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+     \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+      '  |____| .__|_| |_|_| |_\__, | / / / /
+     =========|_|==============|___/=/_/_/_/
+     :: Spring Boot ::  (v2.0.0.BUILD-SNAPSHOT)
+    ....... . . .
+    ....... . . . (log output here)
+    ....... . . .
+    ........ Started Example in 2.222 seconds (JVM running for 6.514)
+    If you open a web browser to localhost:8080 you should see the following output:
 
-Hello World!
-To gracefully exit the application hit ctrl-c.
+    Hello World!
+    To gracefully exit the application hit ctrl-c.
