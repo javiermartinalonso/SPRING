@@ -12,6 +12,10 @@ getting-started
 
       http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#getting-started
 
+examples
+
+      https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples
+
 Sample application demonstrating how to do use spring-boot.
 
 This ApplicationContext will start an in-process Apache Directory Server instance, automatically populated
