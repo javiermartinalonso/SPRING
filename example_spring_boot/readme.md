@@ -1,18 +1,18 @@
 ## SPRING BOOT EXAMPLE
 
-### references to Oficial page
+### References to Oficial page:
 
       http://projects.spring.io/spring-boot/
 
-Spring Boot Reference Guide:
+### Spring Boot Reference Guide:
 
       http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/
 
-getting-started
+### Getting-started:
 
       http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#getting-started
 
-examples
+### Examples:
 
       https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples
 
