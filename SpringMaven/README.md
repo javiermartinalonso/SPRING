@@ -7,7 +7,7 @@ Simplemente es un hola mundo por un lado y por otro lado usar MVC para obtener d
 
 ## ¿Cómo ejecutarlo? ##
 
-compilar con maven para obtener un fichero SpringMaven.war y desplegar en un tomcat.
+compilar con maven para obtener un fichero **SpringMaven.war** y **desplegar en un tomcat**.
 
 ### urls: ###
 

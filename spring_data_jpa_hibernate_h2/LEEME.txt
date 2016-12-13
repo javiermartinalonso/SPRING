@@ -1,2 +1,0 @@
-proyecto java que usa spring + hibernate + JPA contra una bbdd de tipo postgres
-ademas tiene creado su conjunto de test contra un bbdd h2 embebido 

@@ -25,7 +25,7 @@
 	</dependencies>
 
 
-	<!-- Se necesita añadir estos repositorios paa que maven pueda compilar 
+	<!-- Se necesita añadir estos repositorios praa que maven pueda compilar 
 		spring-boot-starter-parent -->
 
 	<!-- (you don't need this if you are using a .RELEASE version) -->
