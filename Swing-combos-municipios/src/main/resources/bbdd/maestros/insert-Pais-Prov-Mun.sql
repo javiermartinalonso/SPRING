@@ -1,7 +1,3 @@
-
-
-
-
 /***************** poblamiento tabla PAISES**********/
 /***************** añadido el 1-6-2008  ******************************/
 INSERT INTO  prototipo.pais  VALUES (1,  'Afganistán');
@@ -244,7 +240,6 @@ INSERT INTO  prototipo.pais  VALUES (237 , 'Yemen');
 INSERT INTO  prototipo.pais  VALUES (238 , 'Yibuti');
 INSERT INTO  prototipo.pais  VALUES (239 , 'Zambia');
 INSERT INTO  prototipo.pais  VALUES (240 , 'Zimbabue');
-
 
 /***************** poblamiento tabla Provincia**********/
 /***************** añadido el 1-6-2008  ******************************/
