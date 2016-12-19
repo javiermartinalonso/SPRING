@@ -5,9 +5,15 @@
 # Ejemplo sencillo de spring mvc con maven #
 Simplemente es un hola mundo por un lado y por otro lado usar MVC para obtener datos
 
+## Requisitos ##
+
+- **Apache Maven 3.3.9**
+- **JDK 8**
+- **apache-tomcat-6.0.41**
+
 ## ¿Cómo ejecutarlo? ##
 
-compilar con maven para obtener un fichero **SpringMaven.war** y **desplegar en un tomcat**.
+Desde linea de comandos, nos situamos en el directorio raíz del proyecto y compilar con maven `mvn clean install` para obtener un fichero war en la carpeta **\SpringMaven\target\SpringMaven.war** y a continuación **desplegar en un tomcat**.
 
 ### urls: ###
 

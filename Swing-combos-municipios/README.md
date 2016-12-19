@@ -6,6 +6,11 @@
 
 Simplemente es una aplicación de escritorio realizada con swing, que carga 2 combos: uno con la provincia seleccionada y otro con los municipios de dicha provincia.
 
+## Requisitos ##
+
+- **Apache Maven 3.3.9**
+- **JDK 8**
+
 ## Compilar y pasar los test ##
 
 Con maven desde la carpeta raiz que contiene el .pom del módulo, ejecutamos:

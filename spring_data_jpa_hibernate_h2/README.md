@@ -7,10 +7,14 @@
 # Ejemplo sencillo de Spring-DATA + hibernate + JPA + postgreSQL #
 
 Módulo java que usa **Spring-DATA + hibernate + JPA** contra una bbdd de tipo **postgreSQL**
-ademas tiene creado su conjunto de test contra un bbdd h2 embebido 
+ademas tiene creado su conjunto de **test contra un bbdd h2 embebido** 
 
-## Requisitos previos ##
-Tener instalado un servidor postgreSQL y creadas las tablas necesarias para el proyecto.
+## Requisitos ##
+
+- **Apache Maven 3.3.9**
+- **JDK 8**
+- **apache-tomcat-6.0.41**
+- **servidor postgreSQL** y ***creadas las tablas necesarias para el proyecto***.
 
 **PENDIENTE DE INCLUIR LOS SCRIPTS DE CREACIÓN DE LA BBDD QUE USA EL PROYECTO.**
 
