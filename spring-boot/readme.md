@@ -12,6 +12,17 @@ Esta aplicación sirve de muestra para probar spring-boot, se puede ejecutar dir
 
 [https://javiermartinalonso.github.io/spring/2017/01/02/spring-boot.html](https://javiermartinalonso.github.io/spring/2017/01/02/spring-boot.html)
 
+## Requisitos ##
+
+- **Apache Maven 3.3.9**
+- **JDK 8**
+
+## Compilar y pasar los test ##
+
+Con maven desde la carpeta raiz que contiene el .pom del módulo, ejecutamos:
+
+    mvn clean install
+
 ### Ejecuntando la aplicación ###
 
 En este punto nuestra aplicación debe funcionar. Puesto que hemos utilizado el POM de ***spring-boot-starter-parent***, tenemos un método run de ejecución que podemos usar para iniciar la aplicación. Escribe `mvn spring-boot:run` desde línea de comandos en el directorio raíz del proyecto para iniciar la aplicación:
