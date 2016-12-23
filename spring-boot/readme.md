@@ -10,7 +10,7 @@ Esta aplicación sirve de muestra para probar spring-boot, se puede ejecutar dir
 
 ## Página de explicación de su construcción ##
 
-[https://javiermartinalonso.github.io/spring/2017/01/02/spring-boot.html](https://javiermartinalonso.github.io/spring/2017/01/02/spring-boot.html)
+[https://javiermartinalonso.github.io/spring/2017/01/03/spring-boot-hola-mundo.html](https://javiermartinalonso.github.io/spring/2017/01/03/spring-boot-hola-mundo.html)
 
 ## Requisitos ##
 
