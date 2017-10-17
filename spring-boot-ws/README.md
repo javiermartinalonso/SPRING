@@ -7,7 +7,15 @@
 
 Aplicación ***Spring-boot+>spring-boot-starter-web-services***, generada con el wizard ***Spring Started Project*** del [**IDE Spring Tool Suite (STS)**](https://spring.io/tools "IDE Spring Tool Suite")
 
-Esta aplicación sirve de muestra para probar spring-boot, se puede ejecutar directamente en un servidor Apache Tomcat 7 incorporado, sin necesidad de tenerlo instalado.
+Producir un servicio web SOAP
+
+Esta guía lo guía a través del proceso de creación de un servidor de servicios web basado en SOAP con Spring.
+
+Lo que vas a construir
+
+Construirá un servidor que expone datos de varios países europeos utilizando un servicio web SOAP basado en WSDL.
+
+Para simplificar el ejemplo, usará datos codificados para el Reino Unido, España y Polonia.
 
 ## Página de explicación de su construcción ##
 
