@@ -42,7 +42,7 @@ Con maven desde la carpeta raiz que contiene el .pom del módulo, ejecutamos:
 - Crear end-point del servicio de país
 
 
-
+- Configurar beans de servicio web
 
 
 
