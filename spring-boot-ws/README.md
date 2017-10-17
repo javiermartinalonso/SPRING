@@ -79,14 +79,55 @@ Si tu abres un navegador web en la ruta `localhost:8080` deberias poder ver la s
 Para salir correctamente de la aplicación presione `ctrl-c`.
 
 
+Si está utilizando Maven, puede ejecutar la aplicación usando ./mvnw spring-boot:run. O puede construir el archivo JAR con ./mvnw clean package. Entonces puede ejecutar el archivo JAR:
+
+java -jar target / gs-soap-service-0.1.0.jar
+El procedimiento anterior creará un JAR ejecutable. También puede optar por construir un archivo WAR clásico en su lugar.
+Se muestra la salida de registro. El servicio debería estar en funcionamiento en unos pocos segundos.
+
+Prueba la aplicación
+
+Ahora que la aplicación se está ejecutando, puede probarlo. Cree un archivo que request.xmlcontenga la siguiente solicitud SOAP:
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+				  xmlns:gs="http://spring.io/guides/gs-producing-web-service">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <gs:getCountryRequest>
+         <gs:name>Spain</gs:name>
+      </gs:getCountryRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+Existen algunas opciones cuando se trata de probar la interfaz SOAP. Puede usar algo como SoapUI o simplemente usar herramientas de línea de comandos si está en un sistema * nix / Mac como se muestra a continuación.
+
+$ curl --header "content-type: text/xml" -d @request.xml http://localhost:8080/ws
+Como resultado, debería ver esta respuesta:
+
+
+<?xml version="1.0"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP-ENV:Header/>
+  <SOAP-ENV:Body>
+    <ns2:getCountryResponse xmlns:ns2="http://spring.io/guides/gs-producing-web-service">
+      <ns2:country>
+        <ns2:name>Spain</ns2:name>
+        <ns2:population>46704314</ns2:population>
+        <ns2:capital>Madrid</ns2:capital>
+        <ns2:currency>EUR</ns2:currency>
+      </ns2:country>
+    </ns2:getCountryResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+
+
+
 ### urls: ###
 
--  Hola mundo!!:
+- ruta del wsdl
 
-[http://localhost:8080/SpringMaven](http://localhost:8080/SpringMaven)
+http://localhost:8080/ws/countries.wsdl
     
-- datos en formato xml
+- endpoint
 
-[http://localhost:8080/SpringMaven/student.xml](http://localhost:8080/SpringMaven/student.xml)
-
-[http://localhost:8080/SpringMaven/studentlist.xml](http://localhost:8080/SpringMaven/studentlist.xml)
+http://localhost:8080/ws
