@@ -54,6 +54,29 @@
 				</configuration>
 			</plugin>
 
+			<!-- Generar clases de dominio basadas en un esquema XML.
+			El siguiente paso es generar clases de Java desde el archivo XSD. 
+			El enfoque correcto es hacer esto automáticamente durante el tiempo de compilación utilizando un complemento maven o gradle.
+			Configuración de complemento para maven: -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>xjc</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<schemaDirectory>${project.basedir}/src/main/resources/</schemaDirectory>
+					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+					<clearOutputDir>false</clearOutputDir>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
