@@ -2,15 +2,20 @@
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badge/)
 
-# Ejemplo SPRING BOOT #
+# Ejemplo spring boot Lombock  Jersey (Jax-RS) JPA H2 Actuator #
 
-Aplicación ***Spring-boot+Spring-MVC-REST***, generada con el wizard ***Spring Started Project*** del [**IDE Spring Tool Suite (STS)**](https://spring.io/tools "IDE Spring Tool Suite")
 
-Esta aplicación sirve de muestra para probar spring-boot, se puede ejecutar directamente en un servidor Apache Tomcat 7 incorporado, sin necesidad de tenerlo instalado.
+Aplicación ***Lombock  Jersey (Jax-RS) JPA H2 Actuator***, generada con el wizard ***Spring Started Project*** del [**IDE Spring Tool Suite (STS)**](https://spring.io/tools "IDE Spring Tool Suite")
+
+Producir un servicio rest con Jersey
+
+Lo que vas a construir
+
+Construirá un servidor que expone servicios rest de clientes, usando los métodos más modernos de Java 8, spring boot...
 
 ## Página de explicación de su construcción ##
 
-[https://javiermartinalonso.github.io/spring/2017/01/03/spring-boot-hola-mundo.html](https://javiermartinalonso.github.io/spring/2017/01/03/spring-boot-hola-mundo.html)
+https://www.youtube.com/watch?v=deB70lfUJBU&index=1&list=PLkQrLrDQK4Z1q7dCOrUYHu7nJMl8JCy5W
 
 ## Requisitos ##
 
@@ -23,7 +28,14 @@ Con maven desde la carpeta raiz que contiene el .pom del módulo, ejecutamos:
 
     mvn clean install
 
-### Ejecuntando la aplicación ###
+
+
+## Pasos en la creación del proyecto ##
+
+- Crear esqueleto con el wizard, seleccionando como jar y módulos Lombock  Jersey (Jax-RS) JPA H2 Actuator.
+
+
+## Ejecuntando la aplicación ##
 
 En este punto nuestra aplicación debe funcionar. Puesto que hemos utilizado el POM de ***spring-boot-starter-parent***, tenemos un método run de ejecución que podemos usar para iniciar la aplicación. Escribe `mvn spring-boot:run` desde línea de comandos en el directorio raíz del proyecto para iniciar la aplicación:
 
@@ -46,3 +58,17 @@ Si tu abres un navegador web en la ruta `localhost:8080` deberias poder ver la s
     Hello World!
 
 Para salir correctamente de la aplicación presione `ctrl-c`.
+
+
+Si está utilizando Maven, puede ejecutar la aplicación usando ./mvnw spring-boot:run. O puede construir el archivo JAR con ./mvnw clean package. Entonces puede ejecutar el archivo JAR:
+
+java -jar target / customer-service-0.1.0.jar
+El procedimiento anterior creará un JAR ejecutable. También puede optar por construir un archivo WAR clásico en su lugar.
+Se muestra la salida de registro. El servicio debería estar en funcionamiento en unos pocos segundos.
+
+## Prueba la aplicación ##
+
+
+
+### urls: ###
+
