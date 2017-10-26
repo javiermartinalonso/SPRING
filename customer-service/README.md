@@ -9,6 +9,10 @@ Aplicación ***Lombock  Jersey (Jax-RS) JPA H2 Actuator***, generada con el wiza
 
 Producir un servicio rest con Jersey
 
+* Lombock
+https://projectlombok.org/
+Project Lombok es una biblioteca de Java que se conecta automáticamente a su editor y crea herramientas, condimentando su java. Nunca escriba otro getter o setter de nuevo.
+
 Lo que vas a construir
 
 Construirá un servidor que expone servicios rest de clientes, usando los métodos más modernos de Java 8, spring boot...
@@ -72,3 +76,17 @@ Se muestra la salida de registro. El servicio debería estar en funcionamiento e
 
 ### urls: ###
 
+
+
+
+- informacion sobre la aplicacion
+
+	http://localhost:8080/application/health
+
+- informacion sobre el entorno o ambiente
+
+	http://localhost:8080/application/env
+
+- lista de los endpoints de la aplicacion
+
+	http://localhost:8080/application
