@@ -39,7 +39,7 @@ Con maven desde la carpeta raiz que contiene el .pom del módulo, ejecutamos:
 ## Pasos en la creación del proyecto ##
 
 - Crear esqueleto con el wizard, seleccionando como jar. 
- 
+
 - Generar objetos de dominio basados ​​en WSDL
 
 	La interfaz a un servicio web SOAP se captura en un WSDL . JAXB proporciona un medio sencillo para generar clases de Java a partir de un WSDL (o más bien: el XSD contenido en la <Types/>sección del WSDL). El WSDL para el servicio de presupuesto se puede encontrar en http://www.webservicex.com/stockquote.asmx?WSDL .
