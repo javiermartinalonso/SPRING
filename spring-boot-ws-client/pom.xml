@@ -49,11 +49,11 @@
 			
 			<!-- tag::wsdl[] -->
 			<!-- Esta configuración generará clases para el WSDL 
-			que se encuentra en la URL especificada, poniendo esas clases en el paquete domain.wsdl. -->
+			que se encuentra en la URL especificada, poniendo esas clases en el paquete domain.wsdl -->
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb2-plugin</artifactId>
-                <version>0.13.2</version>
+                <version>0.12.1</version>
                 <executions>
                     <execution>
                         <goals>
@@ -63,7 +63,7 @@
                 </executions>
                 <configuration>
                     <schemaLanguage>WSDL</schemaLanguage>
-                    <generatePackage>domain.wsdl</generatePackage>
+                    <generatePackage>es.jmartin.springbootwsclient.domain.wsdl</generatePackage>
                     <schemas>
                         <schema>
                             <url>http://www.webservicex.com/stockquote.asmx?WSDL</url>
@@ -71,7 +71,9 @@
                     </schemas>
                 </configuration>
             </plugin>
-            <!-- end::wsdl[] -->			
+            <!-- end::wsdl[] -->
+            
+           
 		</plugins>
 	</build>
 
