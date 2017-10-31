@@ -11,7 +11,7 @@ Producir un servicio web SOAP
 
 Esta guía lo guía a través del proceso de creación de un servidor de servicios web basado en SOAP con Spring.
 
-Lo que vas a construir
+## Lo que vas a construir ##
 
 Construirá un servidor que expone datos de varios países europeos utilizando un servicio web SOAP basado en WSDL.
 
@@ -19,7 +19,9 @@ Para simplificar el ejemplo, usará datos codificados para el Reino Unido, Espa�
 
 ## Página de explicación de su construcción ##
 
+https://spring.io/guides/gs/producing-web-service/
 
+https://github.com/spring-guides/gs-producing-web-service
 
 ## Requisitos ##
 
