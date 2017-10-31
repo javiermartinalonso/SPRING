@@ -40,7 +40,35 @@ Con maven desde la carpeta raiz que contiene el .pom del módulo, ejecutamos:
 
 - Crear esqueleto con el wizard, seleccionando como war. 
  
+- Generar objetos de dominio basados ​​en WSDL
 
+	La interfaz a un servicio web SOAP se captura en un WSDL . JAXB proporciona un medio sencillo para generar clases de Java a partir de un WSDL (o más bien: el XSD contenido en la <Types/>sección del WSDL). El WSDL para el servicio de presupuesto se puede encontrar en http://www.webservicex.com/stockquote.asmx?WSDL .
+	
+	Para generar clases Java desde el WSDL en maven, necesita la siguiente configuración de complemento:
+	
+		<plugin>
+		    <groupId>org.jvnet.jaxb2.maven2</groupId>
+		    <artifactId>maven-jaxb2-plugin</artifactId>
+		    <version>0.13.1</version>
+		    <executions>
+		        <execution>
+		            <goals>
+		                <goal>generate</goal>
+		            </goals>
+		        </execution>
+		    </executions>
+		    <configuration>
+		        <schemaLanguage>WSDL</schemaLanguage>
+		        <generatePackage>hello.wsdl</generatePackage>
+		        <schemas>
+		            <schema>
+		                <url>http://www.webservicex.com/stockquote.asmx?WSDL</url>
+		            </schema>
+		        </schemas>
+		    </configuration>
+		</plugin>
+	
+	Esta configuración generará clases para el WSDL encontrado en la URL especificada, colocando esas clases en el hello.wsdlpaquete.
 
 
 ### Ejecuntando la aplicación ###
