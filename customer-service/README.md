@@ -4,6 +4,7 @@
 
 # Ejemplo spring boot Lombock  Jersey (Jax-RS) JPA H2 Actuator #
 
+https://spring.io/blog/2017/10/18/spring-tips-bootiful-jax-rs
 
 Aplicación ***Lombock  Jersey (Jax-RS) JPA H2 Actuator***, generada con el wizard ***Spring Started Project*** del [**IDE Spring Tool Suite (STS)**](https://spring.io/tools "IDE Spring Tool Suite")
 
@@ -76,7 +77,13 @@ Se muestra la salida de registro. El servicio debería estar en funcionamiento e
 
 ### urls: ###
 
+- endPoint customers
 
+	http://localhost:8080/customers
+
+- endPoint findById
+
+	http://localhost:8080/customers/{id}
 
 
 - informacion sobre la aplicacion
