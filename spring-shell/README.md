@@ -46,6 +46,8 @@ Con maven desde la carpeta raiz que contiene el .pom del módulo, ejecutamos:
 - compilar y ejecutar.
 
 
+> No funcionan los colores en la consola
+
 ### Ejecuntando la aplicación ###
 
 En este punto nuestra aplicación debe funcionar. Puesto que hemos utilizado el POM de ***spring-boot-starter-parent***, tenemos un método run de ejecución que podemos usar para iniciar la aplicación. Escribe `mvn spring-boot:run` desde línea de comandos en el directorio raíz del proyecto para iniciar la aplicación:
