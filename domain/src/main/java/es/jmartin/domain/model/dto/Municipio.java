@@ -4,17 +4,23 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.hateoas.ResourceSupport;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * Persistent class for entity stored in table "municipio"
  */
 
 @Entity
-@Table(name="municipio", schema="prototipo" )
+@Table(name="municipio", schema = "prototipo")
 // Define named queries here
 @NamedQueries ( {
   @NamedQuery ( name="Municipio.countAll", query="SELECT COUNT(x) FROM Municipio x" )
 } )
-public class Municipio implements Serializable {
+public class Municipio  extends ResourceSupport implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,8 +45,10 @@ public class Municipio implements Serializable {
     //----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
     //----------------------------------------------------------------------
-    @ManyToOne
-    @JoinColumn(name="idProvincia", referencedColumnName="idProvincia")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Fetch(value = FetchMode.SELECT)    
+    @JoinColumn(name="id_Provincia", referencedColumnName="id_Provincia")
+    @JsonBackReference
     private Provincia provincia   ;
 
 

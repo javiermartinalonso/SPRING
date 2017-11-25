@@ -14,11 +14,19 @@ Aplicación ***Spring-boot+spring-data-jpa***, generada con el wizard ***Spring 
 
 Construiremos la capa del dominio de objetos de negocio.En este caso los objetos y sus relaciones países, provincias y municipios.
 
-En este módulo sólo usamos las dependencias de javax.persistence incluidas en el modulo de spring-data-jpa, con la intención de definir un modelo de datos que podamos incluir como dependencia en otros modulos y de este modo reutilizarlo en los ejemplos.
+En este módulo sólo usamos las dependencias de javax.persistence incluidas en el modulo de spring-data-jpa, con la intención de definir un modelo de datos que podamos incluir como dependencia en otros módulos y de este modo reutilizarlo en los ejemplos.
+
+Estas dependencias javax.persistence.* forman parte del paquete JPA
+
+JPA (API de Persistencia en Java) es el estándar en Java que define una abstracción que nos permite realizar la integración entre el sistema orientado a objetos de Java y el sistema relacional de nuestra base de datos. Para más detalles consultar la especificación JPA – JSR 338
+
+JPA realiza por nosotros toda la conversión entre nuestros objetos y las tablas de una base de datos. Esta conversión se llama ORM (Mapeo Relacional de Objetos) y puede configurarse a través de metadatos (XML) o anotaciones.
+
+JPA establece un interface común que es implementada por un “JPA Provider” concreto. De modo que es el Proveedor JPA el que realiza el trabajo. Entre los proveedores JPA más conocidos se encuentran Hibernate, Eclipse Link, TopLink, OpenJPA
 
 ## Página de explicación de su construcción ##
 
-
+http://javaespanol.blogspot.com.es/2015/10/jpa-hibernate.html
 
 ## Requisitos ##
 

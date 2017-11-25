@@ -11,13 +11,46 @@ Aplicación ***Spring-boot+spring-hateoas***, generada con el wizard ***Spring S
 
 ## Lo que vas a construir ##
 
-Construirá una api rest hateoas (Hypermedia as the Engine of Application State).
+Esta guía lo guía a través del proceso de creación de una aplicación que accede a los datos de JPA relacionales a través de una interfaz RESTful basada en hipermedios .
 
-En este caso exponemos los paises, provincias y municipios.
+Construirá una aplicación Spring que le permitirá crear y recuperar Personobjetos almacenados en una base de datos utilizando Spring Data REST. Spring Data REST toma las características de Spring HATEOAS y Spring Data JPA y las combina automáticamente.
+
 
 ## Página de explicación de su construcción ##
 
+https://spring.io/guides/gs/accessing-data-rest/
 
+
+
+
+
+
+
+
+
+https://marceloagustini.wordpress.com/2013/09/15/json-problema-de-serializacion-bi-direccional/
+
+
+
+
+
+
+
+https://www.adictosaltrabajo.com/tutoriales/spring-hateoas/
+
+
+
+
+https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
+
+
+http://www.robertocrespo.net/kaizen/implementar-microservicios-spring-boot-iv-documentar-apis-rest-swagger/
+
+
+https://dzone.com/articles/spring-boot-restful-api-documentation-with-swagger
+
+
+http://desarrollo-java.readthedocs.io/es/latest/tutorial4.md.html
 
 ## Requisitos ##
 
@@ -34,7 +67,15 @@ Con maven desde la carpeta raiz que contiene el .pom del módulo, ejecutamos:
 
 ## Pasos en la creación del proyecto ##
 
-- Crear esqueleto con el wizard, seleccionando como war y añadimos la dependencia de hateoas. 
+- Crear esqueleto con el wizard, seleccionando como war y añadimos la dependencia de:
+
+		<!-- hipermedia restfull -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+
+ 
 
 	
 
@@ -43,3 +84,36 @@ Con maven desde la carpeta raiz que contiene el .pom del módulo, ejecutamos:
 En este punto nuestra aplicación debe funcionar. Puesto que hemos utilizado el POM de ***spring-boot-starter-parent***, tenemos un método run de ejecución que podemos usar para iniciar la aplicación. Escribe `mvn spring-boot:run` desde línea de comandos en el directorio raíz del proyecto para iniciar la aplicación:
 
 O puedes construir el archivo JAR con `./mvnw clean package`. Entonces puedes ejecutar el archivo JAR:
+
+
+http://localhost:8080/h2
+http://localhost:8080/pais/findall
+http://localhost:8080/pais/provincia/2
+http://localhost:8080/pais/73/provincias
+http://localhost:8080/pais/73
+
+
+plugging JSON Formatter
+
+
+
+
+
+
+[https://spring.io/guides/gs/accessing-data-rest/](https://spring.io/guides/gs/accessing-data-rest/ "https://spring.io/guides/gs/accessing-data-rest/")
+
+
+[https://spring.io/guides/gs/rest-hateoas/](https://spring.io/guides/gs/rest-hateoas/ "https://spring.io/guides/gs/rest-hateoas/")
+
+[https://spring.io/understanding/REST](https://spring.io/understanding/REST "https://spring.io/understanding/REST")
+
+http://www.baeldung.com/spring-hateoas-tutorial
+
+
+http://www.baeldung.com/spring-data-rest-relationships
+
+http://ledze.mx/index.php/10-spring-boot/restful/7-spring-boot-servicio-data-restful-con-acceso-a-datos-con-jpa-front-end-basado-en-restful-hypermedia
+
+
+https://danielme.com/2014/02/08/persistencia-en-bd-con-spring-data-jpa/
+

@@ -6,17 +6,24 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.hateoas.ResourceSupport;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  * Persistent class for entity stored in table "provincia"
  */
 
 @Entity
-@Table(name="provincia", schema="prototipo" )
+@Table(name="provincia", schema = "prototipo")
 // Define named queries here
 @NamedQueries ( {
   @NamedQuery ( name="Provincia.countAll", query="SELECT COUNT(x) FROM Provincia x" )
 } )
-public class Provincia implements Serializable {
+public class Provincia  extends ResourceSupport implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,7 +32,7 @@ public class Provincia implements Serializable {
     //----------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="idProvincia", nullable=false)
+    @Column(name="id_Provincia", nullable=false)
     private Integer    idProvincia  ;
 
 
@@ -41,11 +48,15 @@ public class Provincia implements Serializable {
     //----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
     //----------------------------------------------------------------------
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
+    @Fetch(value = FetchMode.SELECT)
     @JoinColumn(name="idpais", referencedColumnName="idpais")
+    @JsonBackReference
     private Pais pais        ;
 
-    @OneToMany(mappedBy="provincia", targetEntity=Municipio.class)
+    @OneToMany(mappedBy="provincia", targetEntity=Municipio.class, fetch=FetchType.LAZY)
+    @Fetch(value = FetchMode.SELECT)
+    @JsonManagedReference
     private List<Municipio> listOfMunicipio;
 
 

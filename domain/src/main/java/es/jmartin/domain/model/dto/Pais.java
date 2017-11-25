@@ -1,22 +1,36 @@
 package es.jmartin.domain.model.dto;
 
 import java.io.Serializable;
-
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.hateoas.ResourceSupport;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * Persistent class for entity stored in table "pais"
  */
 
 @Entity
-@Table(name="pais", schema="prototipo" )
+@Table(name="pais", schema = "prototipo")
 // Define named queries here
 @NamedQueries ( {
   @NamedQuery ( name="Pais.countAll", query="SELECT COUNT(x) FROM Pais x" )
 } )
-public class Pais implements Serializable {
+public class Pais extends ResourceSupport implements Serializable  {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,7 +54,10 @@ public class Pais implements Serializable {
     //----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
     //----------------------------------------------------------------------
-    @OneToMany(mappedBy="pais", targetEntity=Provincia.class)
+    @OneToMany(mappedBy="pais", targetEntity=Provincia.class, fetch=FetchType.LAZY)
+//    @OneToMany(mappedBy="pais", cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SELECT)  
+    @JsonManagedReference
     private List<Provincia> listOfProvincia;
 
 
