@@ -2,9 +2,9 @@
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badge/)
 
-# Ejemplo de spring boot con spring-hateoas 
+# Ejemplo de spring boot con spring-hateoas #
 
-Hypermedia as the Engine of Application State (hipermedia como motor del estado de la aplicación). Es una restricción de la arquitectura de la aplicación REST que lo distingue de la mayoría de otras arquitecturas.#
+Hypermedia as the Engine of Application State (hipermedia como motor del estado de la aplicación). Es una restricción de la arquitectura de la aplicación REST que lo distingue de la mayoría de otras arquitecturas.
 
 Aplicación ***Spring-boot+spring-hateoas***, generada con el wizard ***Spring Started Project*** del [**IDE Spring Tool Suite (STS)**](https://spring.io/tools "IDE Spring Tool Suite")
 
@@ -28,7 +28,7 @@ En este caso exponemos los paises, provincias y municipios.
 
 ## Compilar y pasar los test ##
 
-Con maven desde la carpeta raiz que contiene el .pom del módulo, ejecutamos:
+Con maven desde la carpeta raíz que contiene el .pom del módulo, ejecutamos:
 
     mvn clean install
 

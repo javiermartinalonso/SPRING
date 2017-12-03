@@ -1,12 +1,6 @@
 package es.jmartin.example.rest.controller;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Link;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.jmartin.example.rest.model.dto.Pais;
-import es.jmartin.example.rest.model.dto.Provincia;
 import es.jmartin.example.rest.model.repository.MunicipioRepository;
 import es.jmartin.example.rest.model.repository.PaisRepository;
 import es.jmartin.example.rest.model.repository.ProvinciaRepository;

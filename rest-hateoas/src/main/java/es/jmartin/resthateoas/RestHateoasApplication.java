@@ -26,7 +26,8 @@ public class RestHateoasApplication {
 	    return  x ->{
 	        Arrays.asList(
 	                new Person("Javier", "Martín Alonso") ,
-	                new Person("otro", "Martín Alonso")
+	                new Person("otro", "Martín Alonso"),
+	                new Person("pepe", "apellidos")
 	        ).forEach(personRepository::save);
 
 //	        log.info("Carga inicial en BD -  Hecha.");
