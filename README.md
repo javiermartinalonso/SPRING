@@ -4,4 +4,10 @@
 
 # Repositorio con ejemplos del framework Spring #
 
-En este repositorio guardo prototipos usando el framework Spring
+En este repositorio guardo prototipos usando el framework Spring.
+
+## ¿Por qué usar el framework spring? ##
+
+Con este framework nos apoyamos en soluciones altamente testadas, que reducen considerablemente la cantidad de código a escribir, probar y mantener. Acelera mucho el desarrollo y puesta en producción de una solución empresarial.
+
+Este framework es muy popular y por tanto todo lo que usemos y conozcamos de él, será muy reutilizable en el día a día, convirtiéndose en una herramienta de trabajo imprescindible.

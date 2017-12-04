@@ -2,3 +2,7 @@
 /example_spring_boot/.classpath
 /example_spring_boot/.settings
 /example_spring_boot/bin
+/Swing-combos-municipios/.settings/org.eclipse.core.resources.prefs
+/Swing-combos-municipios/*.classpath
+/Swing-combos-municipios/*.project
+/Swing-combos-municipios/.settings/*.prefs
