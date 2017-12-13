@@ -6,7 +6,7 @@
 
 
 
-Aplicación ******, generada con el wizard ***Spring Started Project*** del [**IDE Spring Tool Suite (STS)**](https://spring.io/tools "IDE Spring Tool Suite")
+Aplicación ***Spring-boot+spring-hateoas***, generada con el wizard ***Spring Started Project*** del [**IDE Spring Tool Suite (STS)**](https://spring.io/tools "IDE Spring Tool Suite")
 
 
 ## Lo que vas a construir ##
@@ -44,3 +44,5 @@ O puedes construir el archivo JAR con `./mvnw clean package`. Entonces puedes ej
 
 
 ## Referencias ##
+
+https://examples.javacodegeeks.com/enterprise-java/spring/mvc/spring-mvc-file-download-example/

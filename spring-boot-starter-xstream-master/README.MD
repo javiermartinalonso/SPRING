@@ -7,7 +7,7 @@ Estudio de cómo funciona la configuración de arranque de spring boot y por tan
 
 Como ejemplo, usaremos XStream , un serializador XML / JSON (de) de pura materia prima ofrecido por Thoughtworks. Se aconseja a los lectores que solo usan JAXB y Jackson echar un vistazo a XStream, es extremadamente eficiente y su API es bastante fácil de usar.
 
-
+La magia detrás de este marco reside en la anotación `@EnableAutoConfiguration`, que cargará automáticamente todos los beans que la aplicación requiera, dependiendo de lo que Spring Boot encuentre en el classpath.
 
 #Custom Spring Boot starter demo
 
@@ -28,4 +28,5 @@ O puedes construir el archivo JAR con `./mvnw clean package`. Entonces puedes ej
 ## Referencias ##
 
 https://geowarin.github.io/understanding-spring-boot.html
+
 https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-developing-auto-configuration.html

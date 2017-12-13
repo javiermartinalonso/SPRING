@@ -1,1 +1,4 @@
+#Localización de candidatos de autoconfiguración. Spring Boot comprueba la presencia de un archivo META-INF/spring.factories dentro de su jar publicado. 
+#El archivo debe listar tus clases de configuración a continuación de la clave EnableAutoConfiguration.
+
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=ch.frankel.boot.xstream.XStreamAutoConfiguration

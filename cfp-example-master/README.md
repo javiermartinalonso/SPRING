@@ -2,16 +2,36 @@
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badge/)
 
-# Ejemplo de spring boot  #
+# Ejemplo de spring #
+
+https://www.youtube.com/watch?v=j7rQstg94Hk
 
 
+10 Ways to Get Super Productive with Spring Boot
 
 Aplicación ******, generada con el wizard ***Spring Started Project*** del [**IDE Spring Tool Suite (STS)**](https://spring.io/tools "IDE Spring Tool Suite")
 
 
 ## Lo que vas a construir ##
 
+- devtools
+	- cambiar algún texto en una pagina y ver como cambia automáticamente.
+- pagina de control de errores
+	- 2xx
+	- 4xx
+- login outh contra github
+- inyectar fichero properties por configuracion
+- h2 embebido
+- ejemplo de flyway (gestion de cambios en bbdd)
+- perfiles para conectar con una bbdd u otra dependiendo del perfil.
+	- crear un schema de mysql
+	- en el aplication.properties indicar los perfiles
+	
+		`spring.profiles.include=secrets,local`
 
+	o bien a la hora de compilar o ejecutar con spring boot indicar los perfiles.
+
+- frontend tymeleaft
 
 ## Página de explicación de su construcción ##
 
