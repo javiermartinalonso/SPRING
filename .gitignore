@@ -7,3 +7,7 @@
 /Swing-combos-municipios/*.project
 /Swing-combos-municipios/.settings/*.prefs
 /cfp-example-master/.project
+/cfp-example-master
+/spring-boot-thymeleaf/.classpath
+/spring-boot-thymeleaf/.project
+/spring-boot-thymeleaf/.settings
