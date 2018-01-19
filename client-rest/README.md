@@ -110,3 +110,5 @@ O puedes construir el archivo JAR con `./mvnw clean package`. Entonces puedes ej
 http://www.baeldung.com/rest-template
 
 https://anotherdayanotherbug.wordpress.com/2015/05/05/implementar-un-cliente-rest-con-spring-resttemplate/?blogsub=confirming#subscribe-blog
+
+https://www.arquitecturajava.com/spring-rest-client-con-resttemplates/

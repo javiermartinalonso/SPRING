@@ -17,6 +17,9 @@ Construirá una aplicación Spring que le permitirá crear y recuperar Personobj
 
 
 ## Página de explicación de su construcción ##
+https://geeks-mexico.com/2018/01/04/crea-un-api-rest-de-la-forma-mas-simple-con-java-y-spring-data-rest/
+
+
 
 https://spring.io/guides/gs/accessing-data-rest/
 
