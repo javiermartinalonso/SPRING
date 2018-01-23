@@ -13,7 +13,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -95,6 +94,19 @@ public class BonitaTest {
 	
 	public void filtrarProceso(String strProceso, String strVersion) {
 
+		driver.switchTo().defaultContent();
+		
+		// asegurarse de que se ha cargado la pagina
+		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver logout) {
+				return driver.findElement(By.id("bonitaframe")).isDisplayed();
+			}
+		});
+		
+		//IMPORTANTE: NOS CAMBIAMOS EL DRIVER A DENTRO DEL IFRAME DEL CUERPO, SINO NO ENCONTRARÁ NADA.
+
+		driver.switchTo().frame(driver.findElement(By.id("bonitaframe")));
+		
 //		By byXpath = By.xpath("//button[contains(text(),'All']");
 //		By byXpath = By.xpath("//button[contains(@title='Process: All']");
 //		WebElement myDynamicElement = (new WebDriverWait(driver, 10))
@@ -147,10 +159,17 @@ public class BonitaTest {
 
 	
 	public void filtrarTareas(String strProceso, String strVersion, String strTarea) {
+		driver.switchTo().defaultContent();
 		
-
+		// asegurarse de que se ha cargado la pagina
+		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver logout) {
+				return driver.findElement(By.id("bonitaframe")).isDisplayed();
+			}
+		});
 		
 		//IMPORTANTE: NOS CAMBIAMOS EL DRIVER A DENTRO DEL IFRAME DEL CUERPO, SINO NO ENCONTRARÁ NADA.
+
 		driver.switchTo().frame(driver.findElement(By.id("bonitaframe")));
 //        driver.findElement(By.xpath("//span[@class='label']")).click();
 		
