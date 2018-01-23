@@ -1,9 +1,3 @@
-/***
- * Una forma fácil de comenzar es este ejemplo, 
- * que busca el término "Cheese" en Google 
- * y luego muestra el título de la página de resultados en la consola.
- */
-
 package es.jmartin.bonita;
 
 import org.junit.Test;
@@ -36,20 +30,21 @@ public class BonitaTest {
 		// login
 		logIn("walter.bates", "bpm");
 
-		
-		//Filtrar tareas por proceso
-		filtrarTareas("Selenium", "1.0", "Step1");
-		
-		//hacer una tarea
-		//Revisar la lista y coger una tarea concreta. Por ejemplo la primera.
-		
-		
+		// Filtrar tareas por proceso
+		filtrarTareas("Selenium", "1.0", "Step3");
+		// filtrarTareas("", "1.0", "Step1");
+
+		// hacer una tarea
+		// Revisar la lista y coger una tarea concreta. Por ejemplo la primera.
+
 		// logout
-		logOut();
+		// logOut();
 	}
 
-	
 	public void logIn(String userID, String password) {
+		// nos aseguramos de estar en el contenedor principal
+		driver.switchTo().defaultContent();
+
 		// To check If already login previously then don't execute this function.
 		if (!isAlreadyLogIn) {
 			// If Not login then login In to your account.
@@ -70,13 +65,16 @@ public class BonitaTest {
 	}
 
 	public void logOut() {
+
+		// nos aseguramos de estar en el contenedor principal
+		driver.switchTo().defaultContent();
+
 		// logout
 		// http://localhost:8080/bonita/logoutservice
 		// asegurarse de que se ha cargado la pagina
-		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+		(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver logout) {
 				return driver.findElement(By.partialLinkText("Walter Bates")).isDisplayed();
-
 			}
 		});
 
@@ -89,106 +87,111 @@ public class BonitaTest {
 		logout.click();
 		isAlreadyLogIn = false;
 	}
-	
-	
-	
+
 	public void filtrarProceso(String strProceso, String strVersion) {
 
-		driver.switchTo().defaultContent();
-		
-		// asegurarse de que se ha cargado la pagina
-		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver logout) {
-				return driver.findElement(By.id("bonitaframe")).isDisplayed();
-			}
-		});
-		
-		//IMPORTANTE: NOS CAMBIAMOS EL DRIVER A DENTRO DEL IFRAME DEL CUERPO, SINO NO ENCONTRARÁ NADA.
+		if (strProceso.isEmpty()) {
+			return;
+		}
 
-		driver.switchTo().frame(driver.findElement(By.id("bonitaframe")));
-		
-//		By byXpath = By.xpath("//button[contains(text(),'All']");
-//		By byXpath = By.xpath("//button[contains(@title='Process: All']");
-//		WebElement myDynamicElement = (new WebDriverWait(driver, 10))
-//		  .until(ExpectedConditions.presenceOfElementLocated(byXpath ));
-//		myDynamicElement.click();
-		
-		
-		
+		waitLoadBonitaIframe();
+
+		// By byXpath = By.xpath("//button[contains(text(),'All']");
+		// By byXpath = By.xpath("//button[contains(@title='Process: All']");
+		// WebElement myDynamicElement = (new WebDriverWait(driver, 40))
+		// .until(ExpectedConditions.presenceOfElementLocated(byXpath ));
+		// myDynamicElement.click();
+
 		// asegurarse de que se ha cargado la pagina
-		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+		(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver webDriver) {
-				
-//				driver.findElement(By.className("btn btn-primary dropdown-toggle")).click();
-//				driver.findElement(By.xpath("//button[contains(@class='btn btn-primary dropdown-toggle')]")).click();
-//				driver.findElement(By.xpath("//button[@class='btn btn-primary dropdown-toggle']")).click();
-				
-				
-//				driver.findElements(By.cssSelector("button[title^=Process: All]"))
-//				driver.findElement(By.cssSelector("#food span.dairy.aged"));
+				waitLoadBonitaIframe();
 				return !driver.findElements(By.cssSelector("button.btn.btn-primary.dropdown-toggle")).isEmpty();
-//				return driver.findElements(By.xpath("//button[contains(@class='btn btn-primary dropdown-toggle')]")).isDisplayed();
-//				return !driver.findElements(By.className("btn btn-primary dropdown-toggle")).isEmpty();
-//				return driver.findElements(By.xpath("//span/button[title()='Process All'][1]")).isDisplayed();
-//				return driver.findElements(By.xpath("//button[contains(.,'<div class=\"ProcessList-label ng-binding\">')]")).isDisplayed();
-						
-						
+				// return !driver.findElements(By.cssSelector("button[title^=Process:
+				// All]")).isEmpty();
+				// return driver.findElement(By.cssSelector("#food
+				// span.dairy.aged")).isDisplayed();
+				// return driver.findElements(By.xpath("//button[contains(@class='btn
+				// btn-primary dropdown-toggle')]")).isDisplayed();
+				// return !driver.findElements(By.className("btn btn-primary
+				// dropdown-toggle")).isEmpty();
+				// return driver.findElements(By.xpath("//span/button[title()='Process
+				// All'][1]")).isDisplayed();
+				// return driver.findElements(By.xpath("//button[contains(.,'<div
+				// class=\"ProcessList-label ng-binding\">')]")).isDisplayed();
 			}
 		});
-		
-		//tenemos que buscar el botón de desplegar los procesos instalados.
-		driver.findElements(By.cssSelector("button.btn.btn-primary.dropdown-toggle")).get(0).click();
-//		driver.findElement(By.xpath("//span/button[title()='Process All'][1]")).click();
-		
+
+		// tenemos que buscar el botón de desplegar los procesos instalados.
+		// driver.findElements(By.cssSelector("button.btn.btn-primary.dropdown-toggle")).get(0).click();
+
+		// driver.findElement(By.xpath("//span/button[title()='Process
+		// All'][1]")).click();
+
 		// asegurarse de que se ha cargado la pagina
-//		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-//			public Boolean apply(WebDriver logout) {
-//				return !driver.findElements(By.className("processOptionLink")).isEmpty();
-//			}
-//		});
-//		
-//		// debemos hacer click en la lista de procesos para que nos muestre todos los procesos
-//		// logout
-//		WebElement allProcess = driver.findElement(By.partialLinkText("All"));
-//		allProcess.click();
-		
-		// ahora ya podemos hacer click en el logout
+		// (new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+		// public Boolean apply(WebDriver logout) {
+		// return !driver.findElements(By.className("processOptionLink")).isEmpty();
+		// }
+		// });
+		//
+		// // debemos hacer click en la lista de procesos para que nos muestre todos los
+		// procesos
+		// // logout
+		// WebElement allProcess = driver.findElement(By.partialLinkText("All"));
+		// allProcess.click();
+
+		waitLoadBonitaIframe();
+
+		// asegurarse de que se ha cargado el elemento en la pagina
+		(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver webDriver) {
+				waitLoadBonitaIframe();
+				// tenemos que hacer clcik en el botón de desplegar los procesos instalados.
+				driver.findElements(By.cssSelector("button.btn.btn-primary.dropdown-toggle")).get(0).click();
+				// buscamos en el desplegable el proceso por el que queremos filtrar
+				return driver.findElement(By.linkText(strProceso.concat(" ").concat(strVersion))).isDisplayed();
+			}
+		});
+
+		// hacer click en el desplegable el proceso por el que queremos filtrar
 		WebElement filtrarProceso = driver.findElement(By.linkText(strProceso.concat(" ").concat(strVersion)));
 		filtrarProceso.click();
-	}	
+	}
 
-	
 	public void filtrarTareas(String strProceso, String strVersion, String strTarea) {
-		driver.switchTo().defaultContent();
-		
-		// asegurarse de que se ha cargado la pagina
-		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver logout) {
-				return driver.findElement(By.id("bonitaframe")).isDisplayed();
-			}
-		});
-		
-		//IMPORTANTE: NOS CAMBIAMOS EL DRIVER A DENTRO DEL IFRAME DEL CUERPO, SINO NO ENCONTRARÁ NADA.
 
-		driver.switchTo().frame(driver.findElement(By.id("bonitaframe")));
-//        driver.findElement(By.xpath("//span[@class='label']")).click();
-		
-		
-		//Filtro por proceso
-		filtrarProceso(strProceso, strVersion);		
-        
+		// Filtro por proceso
+		filtrarProceso(strProceso, strVersion);
+
 		// asegurarse de que se ha cargado la pagina
-		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+		(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver logout) {
+				waitLoadBonitaIframe();
 				return driver.findElement(By.id("search")).isDisplayed();
 			}
 		});
 
-		// debemos hacer click en la lista de procesos para que nos muestre todos los procesos
-		// logout
+		// hacer click en la lista de procesos para que nos muestre todos los procesos
 		WebElement search = driver.findElement(By.id("search"));
 		search.sendKeys(strTarea);
-		//hacemos la busqueda
+		// hacemos la busqueda
 		search.submit();
-	}		
+	}
+
+	private void waitLoadBonitaIframe() {
+		// nos aseguramos de estar en el contenedor principal
+		driver.switchTo().defaultContent();
+
+		// asegurarse de que se ha cargado la pagina
+		(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver logout) {
+				return driver.findElement(By.id("bonitaframe")).isDisplayed();
+			}
+		});
+
+		// IMPORTANTE: CAMBIAMOS EL DRIVER A DENTRO DEL IFRAME DEL CUERPO, SINO NO
+		// ENCONTRARÁ NADA.
+		driver.switchTo().frame(driver.findElement(By.id("bonitaframe")));
+	}
 }
