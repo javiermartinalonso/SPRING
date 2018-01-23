@@ -82,7 +82,34 @@ public class SeleniumGoogleTest {
 	        System.out.println("Page title is: " + driver.getTitle());
 	        
 	        
-	        new WebDriverWait(driver, 10);
+//	        new WebDriverWait(driver, 10);
+	        
+	        //ADVERTENCIA: No mezcle esperas implícitas y explícitas. 
+	        //Hacerlo puede causar tiempos de espera impredecibles.
+	        //Por ejemplo, configurar una espera implícita de 10 segundos 
+	        //y una espera explícita de 15 segundos podría provocar un tiempo de espera después de 20 segundos.
+	        // Espera explícita
+	        //Una espera explícita es un código que define para esperar 
+	        //a que se produzca una determinada condición antes de seguir adelante en el código. 
+	        //Google's search is rendered dynamically with JavaScript.
+	        // Wait for the page to load, timeout after 10 seconds
+	        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+	            public Boolean apply(WebDriver d) {
+	                return d.getTitle().toLowerCase().startsWith("cheese!");
+	            }
+	        });
+
+	        
+	        //Esperas implícitas 
+	        //Una espera implícita es decirle a WebDriver que sondee el DOM durante un cierto período de tiempo 
+	        //cuando intente encontrar un elemento o elementos si no están disponibles de inmediato. 
+	        //La configuración predeterminada es 0. Una vez configurado, la espera implícita 
+	        //se establece para la vida de la instancia del objeto WebDriver.
+
+//	        WebDriver driver = new FirefoxDriver();
+//	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//	        driver.get("http://somedomain/url_that_delays_loading");
+//	        WebElement myDynamicElement = driver.findElement(By.id("myDynamicElement"));	        
 	        
 	        /**
 	        // Google's search is rendered dynamically with JavaScript.
@@ -93,12 +120,14 @@ public class SeleniumGoogleTest {
 	            }
 	        });
 **/
+	        // Check the title of the page
 	        // Should see: "cheese! - Google Search"
 	        System.out.println("Page title is: " + driver.getTitle());
 	        
 	        //Close the browser
 	        //driver.quit();
 	        assertThat(driver.getTitle()).contains("Cheese!");
+	             
 	       
 	    }
 

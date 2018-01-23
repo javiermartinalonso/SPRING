@@ -74,6 +74,25 @@ La forma más fácil de configurar un proyecto Selenium 2.0 Java es usar Maven. 
 
 Con maven desde la carpeta raíz que contiene el .pom del módulo, ejecutamos:
 
+
+
+## 41.1 Dependencias del alcance de la prueba ##
+
+Si usa el spring-boot-starter-test'Starter' (en el test scope), encontrará las siguientes bibliotecas proporcionadas:
+
+- JUnit  : el estándar de facto para probar unidades de aplicaciones Java.
+- Spring Test & Spring Boot Test Utilidades y soporte de prueba de integración para aplicaciones Spring Boot.
+- AssertJ  Una biblioteca de aserciones fluidas.
+- Hamcrest  : una biblioteca de objetos matcher (también conocidos como restricciones o predicados).
+- Mockito  : un marco de burla de Java.
+- JSONassert  : una biblioteca de afirmaciones para JSON.
+- JsonPath  XPath para JSON.
+
+[Note]
+Por defecto, Spring Boot usa Mockito 1.x. Sin embargo, también es posible usar 2.x si lo desea.
+
+Estas son bibliotecas comunes que generalmente encontramos útiles al escribir pruebas. Puede agregar dependencias de prueba adicionales si estas no se ajustan a sus necesidades.
+
     mvn clean install
 
 Building the project
@@ -114,3 +133,6 @@ O puedes construir el archivo JAR con `./mvnw clean package`. Entonces puedes ej
 https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-testing
 https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html
 http://www.seleniumhq.org/docs/03_webdriver.jsp
+
+
+http://blog.codeleak.pl/2015/03/spring-boot-integration-testing-with.html
