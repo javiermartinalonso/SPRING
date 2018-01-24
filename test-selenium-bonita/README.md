@@ -136,3 +136,5 @@ http://www.seleniumhq.org/docs/03_webdriver.jsp
 
 
 http://blog.codeleak.pl/2015/03/spring-boot-integration-testing-with.html
+
+https://testingbaires.com/selenium-webdriver-y-buscar-elementos-en-la-pagina-web/

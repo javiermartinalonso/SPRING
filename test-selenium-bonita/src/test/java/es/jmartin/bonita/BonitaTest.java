@@ -1,5 +1,7 @@
 package es.jmartin.bonita;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -31,12 +33,15 @@ public class BonitaTest {
 		logIn("walter.bates", "bpm");
 
 		// Filtrar tareas por proceso
-		filtrarTareas("Selenium", "1.0", "Step3");
+		filtrarTareas("Selenium", "1.0", "Step1");
 		// filtrarTareas("", "1.0", "Step1");
 
 		// hacer una tarea
 		// Revisar la lista y coger una tarea concreta. Por ejemplo la primera.
 
+		selecTask();
+		
+		doTask();
 		// logout
 		// logOut();
 	}
@@ -109,8 +114,6 @@ public class BonitaTest {
 				return !driver.findElements(By.cssSelector("button.btn.btn-primary.dropdown-toggle")).isEmpty();
 				// return !driver.findElements(By.cssSelector("button[title^=Process:
 				// All]")).isEmpty();
-				// return driver.findElement(By.cssSelector("#food
-				// span.dairy.aged")).isDisplayed();
 				// return driver.findElements(By.xpath("//button[contains(@class='btn
 				// btn-primary dropdown-toggle')]")).isDisplayed();
 				// return !driver.findElements(By.className("btn btn-primary
@@ -178,6 +181,209 @@ public class BonitaTest {
 		// hacemos la busqueda
 		search.submit();
 	}
+	
+	public void selecTask() {
+		
+		
+		/**
+		 *     <td>
+        			<span class="120928"> 
+        			<input id="ctl00_CM_ctl01_chkOptions_1" type="checkbox" name="ctl00$CM$ctl01$chkOptions$1"/> 
+        			<label for="ctl00_CM_ctl01_chkOptions_1">Seaside & Country Homes</label> 
+        			</span> 
+    			</td> 
+		 */
+		//label[text()='Seaside & Country Homes']/preceding-sibling::input[@type='checkbox']
+		
+		//El principio aquí es obtener la etiqueta con el texto que desea, luego obtenga la casilla de verificación que está antes de la etiqueta, ya que esa parece ser la forma en que se presenta su HTML.
+		
+		/* Si no está marcada, marcarla
+		if ( !driver.findElement(By.id("idOfTheElement")).isSelected() )
+		{
+		     driver.findElement(By.id("idOfTheElement")).click();
+		}
+		*/
+		
+		/*
+		 
+		 Para obtener todas las casillas de verificación, comenzarías un poco más arriba y luego trabajarías hacia abajo, es decir obtendrás la tabla, y luego obtendrás cualquier casilla dentro de un lapso:
+
+		 //table/descendant::span/input[@type='checkbox']
+		 
+		 */
+		
+//		<td class="Cell--checkbox ng-scope" ng-if="canDoGroupAction()">
+//        <input bo-selector="task" ng-click="onCheckBoxChange($event, $index)" type="checkbox">
+//        </td>
+      
+        
+		// asegurarse de que se ha cargado la pagina y que hay tareas que seleccionar
+		if (pendingTasks())
+		{
+			// asegurarse de que se ha cargado la pagina y que hay tareas que seleccionar
+			(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+				public Boolean apply(WebDriver logout) {
+					waitLoadBonitaIframe();
+//					return !driver.findElements(By.xpath("//table/descendant::span/input[@type='checkbox']")).isEmpty();
+					return !driver.findElements(By.xpath("//table/descendant::input[@type='checkbox']")).isEmpty();
+				}
+			});
+			
+//			List<WebElement> selectElements = driver.findElements(By.xpath("//table/td.Cell--checkbox.ng-scope/descendant::span/input[@type='checkbox']"));
+			List<WebElement> selectElements = driver.findElements(By.xpath("//table/descendant::input[@type='checkbox']"));
+
+			//seleccionar uno
+//			List<WebElement> selectElements= driver.findElements(By.cssSelector("input[name='checkboxes[]']"));
+			
+			
+//			td.Cell--checkbox.ng-scope
+//			WebElement select = driver.findElement(By.tagName("select"));
+//			List<WebElement> allOptions = select.findElements(By.tagName("option"));
+//			for (WebElement option : allOptions) {
+//			    System.out.println(String.format("Value is: %s", option.getAttribute("value")));
+//			    option.click();
+//			}
+			
+			
+			
+			
+			//con esto seleccionamos todos
+			selectElements.get(0).click();
+
+			//desasigno todas las tareas, por si habia alguna asignada
+			// asegurarse de que se ha activado el botón
+			(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+				public Boolean apply(WebDriver webDriver) {
+					waitLoadBonitaIframe();
+					return driver.findElement(By.id("btn-group-unassign")).isDisplayed();
+				}
+			});
+			
+			WebElement buttonUnassign = driver.findElement(By.id("btn-group-unassign"));
+			
+			if (buttonUnassign.isEnabled())
+			{
+				buttonUnassign.click();
+			}
+			else
+			{
+				//no hay que desasignar, deselecciono los checks
+				//iterar sobre todos y los desasigno si es necesario
+				for(WebElement checkbox : selectElements){				
+				    // uncheck 'em all
+				    if(checkbox.isSelected()){
+				      checkbox.click();
+				    }
+				}
+				
+			}
+			
+			
+	/*
+					selectElements.get(0).click();
+
+					if( selectElements.get(2).isSelected()){
+					    selectElements.get(2).click();
+					}
+		*/			
+					//selecciono todas las tareas
+//					for(WebElement checkbox : selectElements){
+//						checkbox.click();
+//					}
+			
+			if (pendingTasks())
+			{
+				//	Asignar las tareas al usuario activo
+				selectElements = driver.findElements(By.xpath("//table/descendant::input[@type='checkbox']"));
+				//con esto seleccionamos todos
+				selectElements.get(0).click();
+				
+						// asegurarse de que se ha activado el botón
+						(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+							public Boolean apply(WebDriver webDriver) {
+								waitLoadBonitaIframe();
+								return driver.findElement(By.id("btn-group-assigntome")).isDisplayed();
+							}
+						});
+						
+						
+						WebElement buttonAssignToMe = driver.findElement(By.id("btn-group-assigntome"));	
+						
+						if (buttonAssignToMe.isEnabled())
+						{
+							buttonAssignToMe.click();
+						}
+			}
+		
+		}
+		
+		
+		
+		
+		
+		
+		
+	
+		
+		
+				
+				
+				
+	
+	}
+
+	private boolean pendingTasks() {
+		
+		// nos aseguramos de estar en el contenedor principal
+		driver.switchTo().defaultContent();
+		
+		// asegurarse de que se ha activado el botón
+		try {
+			(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+				public Boolean apply(WebDriver webDriver) {
+					waitLoadBonitaIframe();
+					return driver.findElement(By.id("btn-group-assigntome")).isDisplayed();
+				}
+			});
+		} catch (Exception e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
+	public void doTask() {
+		
+		
+		/*
+		<button class="Toolbar-button Resize-full" ng-click="openDetailsPopup()" title="Open in a popup">
+        <i class="glyphicon glyphicon-resize-full"></i>
+        <span class="sr-only" translate=""><span class="ng-scope">Open in a popup</span></span>
+	    </button>
+	    */
+		
+		//abrir tarea en un popup
+//		Asignar las tareas al usuario activo
+		
+		// asegurarse de que se ha activado el botón
+		(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver webDriver) {
+				waitLoadBonitaIframe();
+//				return driver.findElement(By.xpath("//span/button[title()='Open in a popup']")).isDisplayed();
+				return !driver.findElements(By.cssSelector("button.Toolbar-button.Resize-full")).isEmpty();
+				// return !driver.findElements(By.cssSelector("button[title^='Open in a popup']")).isEmpty();
+			}
+		});
+		
+		
+//		driver.findElement(By.xpath("//span/button[title()='Open in a popup']")).click();		
+		driver.findElements(By.cssSelector("button.Toolbar-button.Resize-full")).get(0).click();
+    
+	}
+	
+	
+	
 
 	private void waitLoadBonitaIframe() {
 		// nos aseguramos de estar en el contenedor principal
