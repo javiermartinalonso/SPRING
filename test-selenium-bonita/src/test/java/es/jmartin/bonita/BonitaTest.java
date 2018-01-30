@@ -1,12 +1,17 @@
 package es.jmartin.bonita;
 
+import java.io.File;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,10 +20,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import es.jmartin.selenium.support.SeleniumTest;
+//import io.github.bonigarcia.wdm.WebDriverManager;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = "server.port=9000", webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@SeleniumTest(driver = FirefoxDriver.class, baseUrl = "http://localhost:8080/bonita/login.jsp")
+//@SeleniumTest(driver = FirefoxDriver.class, baseUrl = "http://localhost:8080/bonita/login.jsp")
+@SeleniumTest(driver = ChromeDriver.class, baseUrl = "http://localhost:8080/bonita/login.jsp")
+
+//@TestPropertySource(properties = {"webdriver.gecko.driver = C:/selenium/geckodriver.exe"})
 public class BonitaTest {
 
 	@Autowired
@@ -26,6 +35,30 @@ public class BonitaTest {
 
 	public boolean isAlreadyLogIn = false;
 
+	
+//    @Before
+//    public void setUp() throws Exception {
+//        
+//    }
+    
+ 
+    @BeforeClass
+    public static void setupClass() {
+    	
+		String strFile = ClassLoader.getSystemClassLoader().getResource("seleniumDrivers/chromedriver-2.35.exe").getFile();
+		
+		System.setProperty("webdriver.chrome.driver",strFile);
+//    	System.setProperty("webdriver.chrome.driver","C:\\selenium\\chromedriver.exe");
+//    	System.setProperty("webdriver.gecko.driver","C:\\selenium\\geckodriver.exe");
+    }
+
+    @After
+    public void teardown() {
+//        if (driver != null) {
+//            driver.quit();
+//        }
+    }    
+ 
 	@Test
 	public void prueba() {
 
@@ -42,6 +75,70 @@ public class BonitaTest {
 		selecTask();
 		
 		doTask();
+		
+		waitLoadBonitaIframe();
+		
+		//nos movemos a la ventana activa
+		driver.switchTo().activeElement();
+		
+		// asegurarse de que se ha cargado la pagina
+		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver logout) {
+//				return driver.findElements(By.id("bonitaframe")).get(1).isDisplayed();
+				return !driver.findElements(By.id("bonitaframe")).isEmpty();
+			}
+		});
+		
+		// IMPORTANTE: CAMBIAMOS EL DRIVER A DENTRO DEL IFRAME DEL CUERPO, SINO NO
+		// ENCONTRARÁ NADA.
+		driver.switchTo().frame(driver.findElements(By.id("bonitaframe")).get(1));
+		
+		
+		
+		
+		
+		
+		
+		
+		// asegurarse de que se ha cargado la pagina
+				(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+					public Boolean apply(WebDriver logout) {
+
+
+//sería interesante obtener el boton por la etiqueta u algo que lo identifique univocamente, aunque modifiquemos el formulario metiendo nuevos inputs.
+//						return driver.findElement(By.xpath("//.modal-dialog/descendant::input[@name='pbInput1']")).isEnabled();
+//						return driver.findElement(By.xpath("/html[1]/body[@class=\"ng-scope\"]/div[@class=\"container-fluid\"]/div[@class=\"row\"]/div[@class=\"ng-scope\"]/div[@class=\"col-xs-4 ng-scope\"]/div[@class=\"row\"]/div[@class=\"ng-scope\"]/div[@class=\"component col-xs-6 ng-scope\"]/pb-input[1]/div[@class=\"row\"]/div[@class=\"form-group\"]/div[@class=\"col-xs-12\"]/input[@class=\"form-control ng-untouched ng-valid ng-valid-minlength ng-valid-maxlength ng-valid-required ng-dirty ng-valid-parse\"]")).isEnabled();
+						return driver.findElement(By.name("pbInput0")).isDisplayed();
+					}
+				});
+				
+				
+								
+						
+		WebElement input1 = driver.findElement(By.name("pbInput0"));
+//		WebElement input1 = driver.findElement(By.xpath("//.modal-dialog/descendant::input[@name='pbInput1']"));
+//		WebElement input1 = driver.findElement(By.xpath("/html[1]/body[@class=\"ng-scope\"]/div[@class=\"container-fluid\"]/div[@class=\"row\"]/div[@class=\"ng-scope\"]/div[@class=\"col-xs-4 ng-scope\"]/div[@class=\"row\"]/div[@class=\"ng-scope\"]/div[@class=\"component col-xs-6 ng-scope\"]/pb-input[1]/div[@class=\"row\"]/div[@class=\"form-group\"]/div[@class=\"col-xs-12\"]/input[@class=\"form-control ng-untouched ng-valid ng-valid-minlength ng-valid-maxlength ng-valid-required ng-dirty ng-valid-parse\"]"));
+		input1.sendKeys("69");
+		
+
+		
+		/*Boton de cerrar la pantalla modal
+		// asegurarse de que se ha cargado la pagina
+		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver logout) {
+				waitLoadBonitaIframe();
+//				return !driver.findElements(By.cssSelector("button.pull-right.close.Modal-dismiss")).isEmpty();
+				return !driver.findElement(By.xpath("//span/button[title()='close'][1]")).isDisplayed();
+			}
+		});
+		
+		driver.findElements(By.cssSelector("button.pull-right.close.Modal-dismiss")).get(0).click();
+		driver.findElement(By.xpath("//span/button[title()='close'][1]")).click();
+*/
+		
+		
+		
+		
 		// logout
 		// logOut();
 	}
@@ -77,7 +174,7 @@ public class BonitaTest {
 		// logout
 		// http://localhost:8080/bonita/logoutservice
 		// asegurarse de que se ha cargado la pagina
-		(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver logout) {
 				return driver.findElement(By.partialLinkText("Walter Bates")).isDisplayed();
 			}
@@ -103,12 +200,12 @@ public class BonitaTest {
 
 		// By byXpath = By.xpath("//button[contains(text(),'All']");
 		// By byXpath = By.xpath("//button[contains(@title='Process: All']");
-		// WebElement myDynamicElement = (new WebDriverWait(driver, 40))
+		// WebElement myDynamicElement = (new WebDriverWait(driver, 10))
 		// .until(ExpectedConditions.presenceOfElementLocated(byXpath ));
 		// myDynamicElement.click();
 
 		// asegurarse de que se ha cargado la pagina
-		(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver webDriver) {
 				waitLoadBonitaIframe();
 				return !driver.findElements(By.cssSelector("button.btn.btn-primary.dropdown-toggle")).isEmpty();
@@ -128,11 +225,10 @@ public class BonitaTest {
 		// tenemos que buscar el botón de desplegar los procesos instalados.
 		// driver.findElements(By.cssSelector("button.btn.btn-primary.dropdown-toggle")).get(0).click();
 
-		// driver.findElement(By.xpath("//span/button[title()='Process
-		// All'][1]")).click();
+		// driver.findElement(By.xpath("//span/button[title()='Process All'][1]")).click();
 
 		// asegurarse de que se ha cargado la pagina
-		// (new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+		// (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
 		// public Boolean apply(WebDriver logout) {
 		// return !driver.findElements(By.className("processOptionLink")).isEmpty();
 		// }
@@ -147,7 +243,7 @@ public class BonitaTest {
 		waitLoadBonitaIframe();
 
 		// asegurarse de que se ha cargado el elemento en la pagina
-		(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver webDriver) {
 				waitLoadBonitaIframe();
 				// tenemos que hacer clcik en el botón de desplegar los procesos instalados.
@@ -168,7 +264,7 @@ public class BonitaTest {
 		filtrarProceso(strProceso, strVersion);
 
 		// asegurarse de que se ha cargado la pagina
-		(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver logout) {
 				waitLoadBonitaIframe();
 				return driver.findElement(By.id("search")).isDisplayed();
@@ -221,7 +317,7 @@ public class BonitaTest {
 		if (pendingTasks())
 		{
 			// asegurarse de que se ha cargado la pagina y que hay tareas que seleccionar
-			(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+			(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
 				public Boolean apply(WebDriver logout) {
 					waitLoadBonitaIframe();
 //					return !driver.findElements(By.xpath("//table/descendant::span/input[@type='checkbox']")).isEmpty();
@@ -252,7 +348,7 @@ public class BonitaTest {
 
 			//desasigno todas las tareas, por si habia alguna asignada
 			// asegurarse de que se ha activado el botón
-			(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+			(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
 				public Boolean apply(WebDriver webDriver) {
 					waitLoadBonitaIframe();
 					return driver.findElement(By.id("btn-group-unassign")).isDisplayed();
@@ -299,7 +395,7 @@ public class BonitaTest {
 				selectElements.get(0).click();
 				
 						// asegurarse de que se ha activado el botón
-						(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+						(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
 							public Boolean apply(WebDriver webDriver) {
 								waitLoadBonitaIframe();
 								return driver.findElement(By.id("btn-group-assigntome")).isDisplayed();
@@ -339,7 +435,7 @@ public class BonitaTest {
 		
 		// asegurarse de que se ha activado el botón
 		try {
-			(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+			(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
 				public Boolean apply(WebDriver webDriver) {
 					waitLoadBonitaIframe();
 					return driver.findElement(By.id("btn-group-assigntome")).isDisplayed();
@@ -367,7 +463,7 @@ public class BonitaTest {
 //		Asignar las tareas al usuario activo
 		
 		// asegurarse de que se ha activado el botón
-		(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver webDriver) {
 				waitLoadBonitaIframe();
 //				return driver.findElement(By.xpath("//span/button[title()='Open in a popup']")).isDisplayed();
@@ -390,7 +486,7 @@ public class BonitaTest {
 		driver.switchTo().defaultContent();
 
 		// asegurarse de que se ha cargado la pagina
-		(new WebDriverWait(driver, 40)).until(new ExpectedCondition<Boolean>() {
+		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver logout) {
 				return driver.findElement(By.id("bonitaframe")).isDisplayed();
 			}
