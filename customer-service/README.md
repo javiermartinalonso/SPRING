@@ -14,6 +14,8 @@ Producir un servicio rest con Jersey
 https://projectlombok.org/
 Project Lombok es una biblioteca de Java que se conecta automáticamente a su editor y crea herramientas, condimentando su java. Nunca escriba otro getter o setter de nuevo.
 
+https://www.youtube.com/watch?v=JAtvc8kDbi8&feature=em-uploademail
+
 Lo que vas a construir
 
 Construirá un servidor que expone servicios rest de clientes, usando los métodos más modernos de Java 8, spring boot...

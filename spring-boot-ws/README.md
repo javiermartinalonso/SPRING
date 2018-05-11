@@ -23,6 +23,10 @@ https://spring.io/guides/gs/producing-web-service/
 
 https://github.com/spring-guides/gs-producing-web-service
 
+## Otras referencias ##
+
+https://youtu.be/mr_2-AWYCoc
+
 ## Requisitos ##
 
 - **Apache Maven 3.3.9**
