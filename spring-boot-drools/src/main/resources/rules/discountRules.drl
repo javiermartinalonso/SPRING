@@ -1,0 +1,76 @@
+package myAppRules;
+
+import com.example.drools.domain.*;
+
+//Imported specified functions
+import function com.example.drools.utils.Utils.prettyTraces;
+
+//global Sets
+global com.example.drools.service.PushSubService publishTool;
+
+dialect  "mvel"
+
+//functions inline definition
+function Integer calculateIncrement(Integer value, int quantity) {
+    return value + quantity;
+}
+
+
+//New Types definition
+declare Product
+   code : int
+   name : String
+   description : String
+end
+
+
+rule "Adjust Product Price"
+    when
+     	$p : ProductPrice(basePrice > 2 )
+    then
+    	System.out.println("[Adjust Product Price] para el producto [" + $p + "]");
+end
+
+
+
+rule "Adjust Product Price 2"
+	no-loop
+    when
+     	$p : ProductPrice(basePrice > 2 )
+    then
+    	modify($p){
+	    	setBasePrice($p.basePrice -1);
+	    }
+	    //System.out.println("[Adjust Product Price 2] el precio ajustado es " + $p.basePrice);
+	    prettyTraces("[Adjust Product Price 2] el precio ajustado es " + $p.basePrice);
+	    prettyTraces(calculateIncrement($p.basePrice, 3));
+	    
+	     //Instanciacion y print del object
+	    Product pro = new Product();
+	    pro.setCode(3321);
+	    pro.setName("Leche");
+	    pro.setDescription("Rica en Calcio");
+	    prettyTraces(pro);
+	    publishTool.publishNewProductCreated(pro);
+	    
+end
+
+
+
+rule "Adjust Product Price 3"
+	no-loop
+	salience 1
+    when
+     	$p : ProductPrice(basePrice > 2 )
+    then
+    	System.out.println("[Adjust Product Price 3]");
+end
+
+rule "Sending Notification"
+	no-loop
+	salience 2
+    when
+     	$p : ProductPrice(basePrice > 2 )
+    then
+    	System.out.println("[Sending Notification] -Sending Notification-");
+end
