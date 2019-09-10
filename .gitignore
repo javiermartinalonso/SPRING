@@ -11,3 +11,5 @@
 /spring-boot-thymeleaf/.classpath
 /spring-boot-thymeleaf/.project
 /spring-boot-thymeleaf/.settings
+/test-selenium-bonita/*.log
+/spring-shell/*.log
