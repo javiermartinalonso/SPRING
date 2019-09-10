@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>es.satec.angolatelecom.sigo</groupId>
+	<artifactId>sigo-sim-stock-service</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>sigo-sim-stock-service</name>
+	<description>Mediador STOCK SIM ERP Provision</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.15.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+		
+		<!-- jpa -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<exclusions>
+                <exclusion>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-jdbc</artifactId>
+                </exclusion>
+            </exclusions>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+        <!-- database -->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0</version>
+            <scope>${profile.db.oracle}</scope>
+        </dependency>		
+	</dependencies>
+
+	<build>
+	
+		<finalName>sigo-sim-stock-service</finalName>
+		<resources>
+			<!-- solo hacemos filtering de los de abajo y para los demas los dejamos igual -->
+			<!-- MUCHO OJO hay que usar  @...@  para hacer el filtering -->
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/application.yml</include>
+					<include>**/application.properties</include>
+					<include>**/application-jndi.yml</include>
+					<include>**/application-jndi.properties</include>
+					<include>**/application-oracle.yml</include>
+					<include>**/application-oracle.properties</include>
+					<include>**/logback.xml</include>
+				</includes>			
+			</resource>
+			<!-- 
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<excludes>
+					<exclude>**/application.yml</exclude>
+					<exclude>**/application.properties</exclude>
+					<exclude>**/application-jndi.yml</exclude>
+					<exclude>**/application-jndi.properties</exclude>
+					<exclude>**/application-oracle.yml</exclude>
+					<exclude>**/application-oracle.properties</exclude>
+					<exclude>**/logback.xml</exclude>
+				</excludes>
+			</resource>
+			-->
+		</resources>
+			
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<!--
+			OJO: A estos entornos hay que sumar los "target" definidos en el parent (jar, wildfly, tomcat...) 
+			Entornos: 
+				* local 
+				* development 
+				* integration 
+				* preproduction 
+				* production 
+		-->
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+			    <profile.db.oracle>compile</profile.db.oracle>			
+				<spring.profiles.active>oracle</spring.profiles.active>
+				<profile.jndi.base>java:jboss/datasources</profile.jndi.base>				
+				<profile.logs.basedir>/opt/provision/rest_apis/at_provision/logs</profile.logs.basedir>				
+			</properties>
+		</profile>
+		<profile>
+			<id>development</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+			    <profile.db.oracle>provided</profile.db.oracle>			
+				<spring.profiles.active>jndi</spring.profiles.active>
+				<profile.jndi.base>java:jboss/datasources</profile.jndi.base>
+				<profile.logs.basedir>/opt/provision/rest_apis/at_provision/logs</profile.logs.basedir>				
+			</properties>
+		</profile>
+		<profile>
+			<id>integration</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+			    <profile.db.oracle>provided</profile.db.oracle>
+				<spring.profiles.active>jndi</spring.profiles.active>
+				<profile.jndi.base>java:jboss/datasources</profile.jndi.base>				
+				<profile.logs.basedir>/opt/provision/rest_apis/at_provision/logs</profile.logs.basedir>				
+			</properties>
+		</profile>
+		<profile>
+			<id>preproduction</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+			    <profile.db.oracle>provided</profile.db.oracle>			
+				<spring.profiles.active>jndi</spring.profiles.active>
+				<profile.jndi.base>java:jboss/datasources</profile.jndi.base>				
+				<profile.logs.basedir>/opt/provision/rest_apis/at_provision/logs</profile.logs.basedir>				
+			</properties>
+		</profile>
+		<profile>
+			<id>production</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+			    <profile.db.oracle>provided</profile.db.oracle>			
+				<spring.profiles.active>jndi</spring.profiles.active>
+				<profile.jndi.base>java:jboss/datasources</profile.jndi.base>				
+				<profile.logs.basedir>/opt/provision/rest_apis/at_provision/logs</profile.logs.basedir>
+			</properties>
+		</profile>
+	</profiles>
+	
+</project>

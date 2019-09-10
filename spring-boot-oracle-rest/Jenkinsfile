@@ -1,0 +1,128 @@
+pipeline {
+	agent any
+	stages {
+		stage('Preparation') {
+			steps {
+				echo 'Limpiar workspace'
+				sh 'rm -R -f *'
+
+				echo 'Descargar el modulo'
+				svn 'svn://svn.aplicaciones.satec.es:33690/ANGOLA_TELECOM_OSS_INVyPROV/trunk/5Provision/trunk/6Mediators/trunk/1Codigo/SIM-provision-service'
+			}
+		}
+		stage('Build') {
+			steps {
+				withMaven(maven : 'maven_3_3_9') {
+					echo 'Compilar el módulo'
+					sh 'mvn -U clean compile'
+				}
+			}
+		}
+		stage('Test') {
+			steps {
+				withMaven(maven : 'maven_3_3_9') {
+					echo 'pasar los test del módulo'
+						sh 'mvn test'
+				}
+
+				echo 'guardar los ficheros de test generados'
+				//junit '**/target/surefire-reports/TEST-*.xml'
+				archive 'target/*.war'
+			}
+		}
+		stage('SonarQube analysis') {
+			steps {
+				echo 'Estudiar calidad de codigo con sonar'
+				withMaven(maven : 'maven_3_3_9') {
+					withSonarQubeEnv('SonarQueveServer') {
+						sh 'mvn sonar:sonar'
+					}
+				}	
+			}
+		}
+		// No need to occupy a node
+		stage("Quality Gate"){ 
+			steps {			
+				echo 'Esperar al resultado del analisis de la calidad de codigo con sonar'
+				script {
+					timeout(time: 30, unit: 'MINUTES') {
+						def qualitygate = waitForQualityGate()
+						if (qualitygate.status != "OK") {
+							error "Pipeline se ha detenido por que la calidad obtenida del codigo es negativa: ${qualitygate.status}"
+						}
+					}
+				}
+			}		  
+		}	
+		stage('package') {
+			steps {
+				echo 'Generar los jar, war para el entorno de integración'
+				withMaven(maven : 'maven_3_3_9') {
+					sh 'mvn -Dmaven.test.skip=true package -P integration,wildfly'
+				}
+			}
+		}
+		stage('Deliver') { 
+            steps {
+				echo 'despliegue en integracion'
+                //sh './jenkins/scripts/deliver.sh' 
+				
+				/*
+				//TODO esto no funciona, por las sshkeys no deben estar configuradas
+				echo 'Desplegar en entorno de integracion'
+				sh 'scp crm-mediator/target/*.war root@sigobpm2.c.mad.interhost.com:/opt/provision/wildfly-9.0.2.Final/standalone/deployTemp'
+				*/				
+            }
+        }
+		
+		
+		stage('Deliver for development') {
+			when {
+			    branch 'development'
+			}
+			steps {
+				echo 'despliegue en desarrollo'
+			    /*
+				sh './jenkins/scripts/deliver-for-development.sh'
+			    input message: 'Finished using the web site? (Click "Proceed" to continue)'
+			    sh './jenkins/scripts/kill.sh'
+				*/
+			}
+		}
+		stage('Deploy for production') {
+			when {
+			    branch 'production'
+			}
+			steps {
+				echo 'despliegue en produccion'
+				/*
+			    sh './jenkins/scripts/deploy-for-production.sh'
+			    input message: 'Finished using the web site? (Click "Proceed" to continue)'
+			    sh './jenkins/scripts/kill.sh'
+				*/
+			}
+		}		
+		
+	}
+	post {
+		always {
+			echo 'This will always run'
+		}
+		success {
+		  echo 'This will run only if successful'
+			/*mail to: 'javier.martin@satec.es',
+				subject: "The pipeline ${currentBuild.fullDisplayName} completed successfully.",
+				body: "The pipeline ${currentBuild.fullDisplayName} completed successfully."*/
+		}
+		failure {
+			echo 'This will run only if failed'
+		}
+		unstable {
+			echo 'This will run only if the run was marked as unstable'
+		}
+		changed {
+			echo 'This will run only if the state of the Pipeline has changed'
+			echo 'For example, if the Pipeline was previously failing but is now successful'
+		}
+	}
+}
