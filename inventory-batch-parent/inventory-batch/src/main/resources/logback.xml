@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- DOCUMENTACIÃ“N: http://logback.qos.ch/manual http://logback.qos.ch/manual/layouts.html 
+        => Patterns. - %logger{0} => Nombre del Logger == Clase que imprime la traza 
+        (si el logger se carga con package name... name="es.satec.angolatelecom.inventory" 
+        - %c{0}.%M => Tira de reflection -> LENTO ===> Si eso ya se quitarÃ¡... -->
+<configuration debug="false" scan="false" scanPeriod="30 seconds">
+
+        <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder>
+                        <charset>utf-8</charset>
+                        <pattern>[%d] [%-5p] [%logger{0}] %m%n</pattern>
+                </encoder>
+        </appender>
+
+        <appender name="ErrorFile"
+                class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <Append>true</Append>
+                <File>@profile.logs.basedir@/@artifactId@_error.log</File>
+                <encoder>
+                        <charset>utf-8</charset>
+                        <pattern>[%d] [%t] [%-5p] [%c{0}.%M\(\)] %m%n</pattern>
+                </encoder>
+                <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                        <level>warn</level>
+                </filter>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                        <!-- daily rollover. Make sure the path matches the one in the file element 
+                                or else the rollover logs are placed in the working directory. -->
+                        <fileNamePattern>@profile.logs.basedir@/@artifactId@_error.log_%d{yyyy-MM-dd}</fileNamePattern>
+
+                        <!-- <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"> 
+                                <maxFileSize>5MB</maxFileSize> </timeBasedFileNamingAndTriggeringPolicy> -->
+
+                        <!-- keep 30 days' worth of history -->
+                        <maxHistory>30</maxHistory>
+                </rollingPolicy>
+        </appender>
+
+        <appender name="LogFile"
+                class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <Append>true</Append>
+                <File>@profile.logs.basedir@/@artifactId@_depuracion.log</File>
+                <encoder>
+                        <charset>utf-8</charset>
+                        <pattern>[%d] [%t] [%-5p] [%c{0}.%M\(\)] %m%n</pattern>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                        <!-- daily rollover. Make sure the path matches the one in the file element 
+                                or else the rollover logs are placed in the working directory. -->
+                        <fileNamePattern>@profile.logs.basedir@/@artifactId@_depuracion.log_%d{yyyy-MM-dd}
+                        </fileNamePattern>
+
+                        <!-- <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"> 
+                                <maxFileSize>5MB</maxFileSize> </timeBasedFileNamingAndTriggeringPolicy> -->
+
+                        <!-- keep 30 days' worth of history -->
+                        <maxHistory>30</maxHistory>
+                </rollingPolicy>
+        </appender>
+        
+        <appender name="wireFile"
+                class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <Append>true</Append>
+                <File>@profile.logs.basedir@/@artifactId@_wire.log</File>
+                <encoder>
+                        <charset>utf-8</charset>
+                        <pattern>[%d] [%t] [%-5p] [%c{0}.%M\(\)] %m%n</pattern>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                        <!-- daily rollover. Make sure the path matches the one in the file element 
+                                or else the rollover logs are placed in the working directory. -->
+                        <fileNamePattern>@profile.logs.basedir@/@artifactId@_wire.log_%d{yyyy-MM-dd}
+                        </fileNamePattern>
+
+                        <!-- <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"> 
+                                <maxFileSize>5MB</maxFileSize> </timeBasedFileNamingAndTriggeringPolicy> -->
+
+                        <!-- keep 30 days' worth of history -->
+                        <maxHistory>30</maxHistory>
+                </rollingPolicy>
+        </appender>
+
+        <logger name="es.satec.angolatelecom.inventory" additivity="true" level="trace">
+                <appender-ref ref="console" />
+                <appender-ref ref="ErrorFile" />
+                <appender-ref ref="LogFile" />
+        </logger>
+
+        <!-- Trazas de MATCHEO de URLs (spring security) -->
+        <logger name="org.springframework.security.web.util.matcher" additivity="false" level="INFO">
+                <appender-ref ref="console" />
+        </logger>
+        
+        <logger name="org.springframework.ws.client.MessageTracing" additivity="false" level="TRACE">
+        	<appender-ref ref="console" />
+        	<appender-ref ref="wireFile" />
+   		</logger>
+   		<logger name="org.springframework.ws.server.MessageTracing" additivity="false" level="TRACE">
+   			<appender-ref ref="console" />
+   			<appender-ref ref="wireFile" />
+   		</logger>
+        
+        <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
+      		<appender-ref ref="console" />  
+            <appender-ref ref="LogFile" />
+  		</logger>
+  		
+        <logger name="jboss.jdbc.spy" level="TRACE" additivity="false">
+      		<appender-ref ref="console" />  
+            <appender-ref ref="LogFile" />
+  		</logger>
+  		  		
+        <!-- Logger por defecto: DEBUG para habilitar trazas de "framework" (spring...) -->
+        <root level="INFO">
+                <appender-ref ref="console" />
+                <appender-ref ref="ErrorFile" />
+                <appender-ref ref="LogFile" />
+        </root>
+</configuration>

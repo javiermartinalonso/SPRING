@@ -1,0 +1,407 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<name>inventory-batch-parent</name>
+	<groupId>es.satec.angolatelecom.inventory</groupId>
+	<artifactId>parent-inventory-batch</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.3.1.RELEASE</version>
+		<relativePath />
+	</parent>
+
+
+
+	<properties>
+		<project.build.java.version>1.8</project.build.java.version>
+		<project.build.skipTest>false</project.build.skipTest>
+	</properties>
+<!--
+	<repositories>
+		<repository>
+			<id>3rd</id>
+			<url>http://nexus.aplicaciones.satec.es/content/repositories/thirdparty/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>SATEC</id>
+			<url>http://nexus.aplicaciones.satec.es/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>
+	</repositories>
+	
+	 <pluginRepositories>
+        <pluginRepository>
+          <id>3rd</id>
+          <url>http://nexus.aplicaciones.satec.es/content/repositories/thirdparty/</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+-->
+
+	<!-- metemos aqui info de perfiles en funcion del tipo de paquete a generar -->
+	<profiles>
+		<!-- 
+			Entornos: 
+				* local 
+				* development 
+				* integration 
+				* preproduction 
+				* production 
+		-->
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Carpeta para dejar los logs 
+				<profile.logs.basedir>${basedir}/target</profile.logs.basedir>
+-->
+				<!-- Carpeta para dejar los logs -->
+				<profile.logs.basedir>/opt/provision/rest_apis/at_provision/logs</profile.logs.basedir>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>development</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Carpeta para dejar los logs -->
+				<profile.logs.basedir>/opt/provision/rest_apis/at_provision/logs</profile.logs.basedir>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>integration</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Carpeta para dejar los logs -->
+				<profile.logs.basedir>/opt/provision/rest_apis/at_provision/logs</profile.logs.basedir>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>preproduction</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Carpeta para dejar los logs -->
+				<profile.logs.basedir>/opt/provision/rest_apis/at_provision/logs</profile.logs.basedir>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>production</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Carpeta para dejar los logs -->
+				<profile.logs.basedir>/opt/provision/rest_apis/at_provision/logs</profile.logs.basedir>
+			</properties>
+		</profile>
+
+		<!-- Servidor de destino 
+			- jar (Spring boot fat jar) 
+			- wildfly (Wildfly 9) 
+			- tomcat (Tomcat) 
+			- ¿¿Docker?? 
+		-->
+		<profile>
+			<id>jar</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<project.packaging>jar</project.packaging>
+				<spring-boot-starter-tomcat.scope>runtime</spring-boot-starter-tomcat.scope>
+
+				<profile.jndi.base>java:comp</profile.jndi.base>
+				<profile.skip.springboot>false</profile.skip.springboot>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>wildfly</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<project.packaging>war</project.packaging>
+				<spring-boot-starter-tomcat.scope>provided</spring-boot-starter-tomcat.scope>
+
+				<profile.jndi.base>java:jboss/datasources</profile.jndi.base>
+			</properties>
+			<dependencyManagement>
+				<!-- Dependencias generales-->
+				<dependencies>
+					<dependency>
+            			<groupId>org.springframework.boot</groupId>
+            			<artifactId>spring-boot-starter</artifactId>
+            			<!--TODO Ojo estoy hay que revisarlo -->
+            			<version>1.3.1.RELEASE</version>
+            			<exclusions>
+            				<exclusion>
+								<artifactId>jul-to-slf4j</artifactId>
+								<groupId>org.slf4j</groupId>
+							</exclusion>
+            			</exclusions>
+        			</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-web</artifactId>
+						<exclusions>
+							<!-- Estas exclusiones se configuraran mas abajo segun el PROFILE seleccionado -->
+							<exclusion>
+								<groupId>org.springframework.boot</groupId>
+								<artifactId>spring-boot-starter-tomcat</artifactId>
+							</exclusion>
+							<exclusion>
+								<artifactId>jboss-logging</artifactId>
+								<groupId>org.jboss.logging</groupId>
+							</exclusion>
+			
+							<!-- SOBRA: Ya est� expl�citamente indicado en PARENT. 
+							<exclusion>
+								<artifactId>logback-classic</artifactId>
+								<groupId>ch.qos.logback</groupId>
+							</exclusion>
+			-->
+							<!-- En modo "WAR" provoca conflictos con LOGS -->
+							<exclusion>
+								<artifactId>jul-to-slf4j</artifactId>
+								<groupId>org.slf4j</groupId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-tomcat</artifactId>
+						<scope>provided</scope>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+			
+			<dependencies>
+				<dependency>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+					<version>3.1.0</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-war-plugin</artifactId>
+							<configuration>
+								<warSourceExcludes>**/*-ds.xml,**/context.xml,**/web.xml</warSourceExcludes>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>tomcat</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<project.packaging>war</project.packaging>
+				<spring-boot-starter-tomcat.scope>provided</spring-boot-starter-tomcat.scope>
+
+				<profile.jndi.base>java:comp</profile.jndi.base>
+			</properties>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+            			<groupId>org.springframework.boot</groupId>
+            			<artifactId>spring-boot-starter</artifactId>
+            			<!--TODO Ojo estoy hay que revisarlo -->
+            			<version>1.3.1.RELEASE</version>
+            			<exclusions>
+            				<exclusion>
+								<artifactId>jul-to-slf4j</artifactId>
+								<groupId>org.slf4j</groupId>
+							</exclusion>
+            			</exclusions>
+        			</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-web</artifactId>
+						<exclusions>
+							<!-- Estas exclusiones se configurar�n m�s abajo seg�n el PROFILE seleccionado -->
+							<exclusion>
+								<groupId>org.springframework.boot</groupId>
+								<artifactId>spring-boot-starter-tomcat</artifactId>
+							</exclusion>
+			
+							<!-- SOBRA: Ya est� expl�citamente indicado en PARENT. 
+							<exclusion>
+								<artifactId>logback-classic</artifactId>
+								<groupId>ch.qos.logback</groupId>
+							</exclusion>
+			-->
+							<!-- En modo "WAR" provoca conflictos con LOGS -->
+							<exclusion>
+								<artifactId>jul-to-slf4j</artifactId>
+								<groupId>org.slf4j</groupId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-tomcat</artifactId>
+						<scope>provided</scope>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+			<dependencies>
+				<dependency>
+					<groupId>com.oracle</groupId>
+					<artifactId>ojdbc6</artifactId>
+					<version>11.2.0</version>
+					<scope>runtime</scope>
+				</dependency>
+				<dependency>
+					<groupId>javax.servlet</groupId>
+					<artifactId>javax.servlet-api</artifactId>
+					<version>3.1.0</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-war-plugin</artifactId>
+							<configuration>
+								<warSourceExcludes>**/jboss-deployment-structure.xml,**/*-ds.xml,**/web.xml</warSourceExcludes>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
+<!--
+	<distributionManagement>
+		<repository>
+			<id>nexus-satec-releases</id>
+			<name>Internal Releases</name>
+			<url>http://nexus.aplicaciones.satec.es/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-satec-snapshots</id>
+			<name>Internal Snapshots</name>
+			<url>http://nexus.aplicaciones.satec.es/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+-->
+
+	<dependencies>
+		<!-- ## LOGS by "LOGBACK" ## -->
+		<!-- "logback-classic" inyecta "ch.qos.logback:logback-core:1.1.3", por 
+			lo que NO incluyo su dependencia -->
+		<dependency>
+			<artifactId>logback-classic</artifactId>
+			<groupId>ch.qos.logback</groupId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		
+	</dependencies>
+
+	<dependencyManagement>
+		<!-- Dependencias generales -->
+		<dependencies>
+			
+		</dependencies>
+
+	</dependencyManagement>
+
+	<build>
+		<resources>
+			<!-- solo hacemos filtering de los de abajo y para los demas los dejamos 
+				igual -->
+			<!-- MUCHO OJO hay que usar @...@ para hacer el filtering -->
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/application.yml</include>
+					<include>**/application.properties</include>
+					<include>**/logback.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<excludes>
+					<exclude>**/application.yml</exclude>
+					<exclude>**/application.properties</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<skipTests>${project.build.skipTest}</skipTests>
+						<includes>
+							<include>**/*Tests.java</include>
+							<include>**/*Test.java</include>
+						</includes>
+						<excludes>
+							<exclude>**/Abstract*.java</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		
+	</build>
+
+
+
+</project>

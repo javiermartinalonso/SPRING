@@ -1,0 +1,16 @@
+org\springframework\batch\item\excel\AbstractExcelItemReaderTests$1.class
+org\springframework\batch\item\excel\poi\PoiItemReaderXlsxTest.class
+org\springframework\batch\item\Player.class
+org\springframework\batch\item\excel\jxl\JxlItemReaderTest.class
+org\springframework\batch\item\excel\support\rowset\StaticColumnNameExtractorTest.class
+org\springframework\batch\item\excel\mapping\BeanWrapperRowMapperTest.class
+org\springframework\batch\item\excel\mapping\PassThroughRowMapperTest.class
+org\springframework\batch\item\excel\BeanPropertyWithStaticHeaderItemReaderTest.class
+org\springframework\batch\item\excel\support\rowset\DefaultRowSetMetaDataTest.class
+org\springframework\batch\item\excel\mapping\BeanWrapperRowMapperTest$TestConfig.class
+org\springframework\batch\item\excel\poi\PoiItemReaderXlsTest.class
+org\springframework\batch\item\excel\jxl\JxlUtilsTests.class
+org\springframework\batch\item\excel\MockExcelItemReader.class
+org\springframework\batch\item\excel\AbstractExcelItemReaderTests.class
+org\springframework\batch\item\excel\BeanPropertyItemReaderTest.class
+org\springframework\batch\item\excel\MockSheet.class
