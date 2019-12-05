@@ -1,0 +1,1 @@
+https://www.javacodegeeks.com/2019/09/spring-method-security-preauthorize.html

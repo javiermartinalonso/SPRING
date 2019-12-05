@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Email Message From Thymeleaf</title>
+</head>
+<body>
+
+    <div>
+        <img src="http://blog.scottlogic.com/bjedrzejewski/assets/spring-boot.png" />
+    </div>
+    <h1>This email was sent to <span th:text="${mailTo}"></span> with <span th:text="${sender} + '!!!'"></span> </h1>
+</body>
+</html>
