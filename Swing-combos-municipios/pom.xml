@@ -11,7 +11,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<hibernate.version>5.0.6.Final</hibernate.version>
 		<spring.version>4.3.4.RELEASE</spring.version>
-		<spring-data-jpa.version>1.9.2.RELEASE</spring-data-jpa.version>
+		<spring-data-jpa.version>1.11.23.RELEASE</spring-data-jpa.version>
 		<jdk.version>1.8</jdk.version>
 		<junit.version>4.11</junit.version>
 		<h2.version>1.4.191</h2.version>
