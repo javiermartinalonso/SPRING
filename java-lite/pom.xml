@@ -18,7 +18,7 @@
         <jetty.maven.plugin.version>9.4.8.v20171121</jetty.maven.plugin.version>
         <activejdbc.version>1.4.13</activejdbc.version>
         <activeweb.version>1.15</activeweb.version>
-        <mysql.connector.java.version>5.1.45</mysql.connector.java.version>
+        <mysql.connector.java.version>8.0.16</mysql.connector.java.version>
         <sun.tools.version>1.7.0</sun.tools.version>
         <jackson.version>1.8.2</jackson.version>
         <junit.version>4.12</junit.version>
